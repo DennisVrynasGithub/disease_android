@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <TextView
+        android:id="@+id/tx_disease_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="29dp"
+        android:text="TextView"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tx_disease_a2z"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tx_disease_id"
+        android:layout_alignBottom="@+id/tx_disease_id"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/tx_disease_id"
+        android:text="TextView"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tx_diseasename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tx_disease_a2z"
+        android:layout_alignBottom="@+id/tx_disease_a2z"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/tx_disease_a2z"
+        android:text="TextView"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tx_disease_fact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tx_diseasename"
+        android:layout_marginStart="26dp"
+        android:layout_toEndOf="@+id/tx_diseasename"
+        android:text="TextView"
+        android:textColor="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/tx_disease_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tx_diseasename"
+        android:layout_below="@+id/tx_diseasename"
+        android:layout_marginTop="14dp"
+        android:text="TextView"
+        android:textColor="@android:color/holo_orange_dark" />
+</RelativeLayout>
