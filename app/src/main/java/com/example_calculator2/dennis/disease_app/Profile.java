@@ -39,7 +39,7 @@ public class Profile extends AppCompatActivity {
         et3 = findViewById(R.id.editText5);
         et4 = findViewById(R.id.editText6);
 
-        base_url = "http://192.168.1.73:8080/";
+        base_url = "http://83.212.101.67:80/";
         json_user_id = getIntent().getExtras().getString("json_user_id");
         json_user_email = getIntent().getExtras().getString("json_user_email");
 

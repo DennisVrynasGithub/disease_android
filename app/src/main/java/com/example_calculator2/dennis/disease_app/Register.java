@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example_calculator2.dennis.disease_app.model.Users;
 import com.example_calculator2.dennis.disease_app.service.User;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +40,7 @@ public class Register extends AppCompatActivity {
         et6 = findViewById(R.id.editText_age);
         btn1 = findViewById(R.id.bn_register2);
         btn2 = findViewById(R.id.btn_register_back);
-        base_url = "http://192.168.1.73:8080/";
+        base_url = "http://83.212.101.67:80/";
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +90,11 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Users> call, Throwable t) {
                         Log.d("onFailure", t.toString());
+                        if (Objects.equals(t.toString(),"com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 2 path $")){
+                            Toast.makeText(Register.this, "Register successful", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(Register.this, "Register failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

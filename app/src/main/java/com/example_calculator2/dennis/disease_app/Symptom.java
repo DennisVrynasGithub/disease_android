@@ -85,7 +85,7 @@ public class Symptom extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String login_url = "http://192.168.1.73:8080/get_one_symptom.php";
+            String login_url = "http://83.212.101.67:80/get_one_symptom.php";
             try {
                 String word = params[0];
                 URL url = new URL(login_url);

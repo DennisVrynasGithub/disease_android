@@ -48,7 +48,7 @@ public class Questionnaire1 extends AppCompatActivity {
         tx8 = findViewById(R.id.textView52);
         tx9 = findViewById(R.id.textView53);
         btn = findViewById(R.id.btn_q1_send);
-        base_url = "http://192.168.1.73:8080/";
+        base_url = "http://83.212.101.67:80/";
 
         tx1.setVisibility(View.INVISIBLE);
         tx2.setVisibility(View.INVISIBLE);

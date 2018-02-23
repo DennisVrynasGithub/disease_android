@@ -50,7 +50,7 @@ public class Questionnaire3 extends AppCompatActivity {
         tx9 = findViewById(R.id.textView362);
         et1 = findViewById(R.id.et_q3_age);
         btn = findViewById(R.id.btn_q3_send);
-        base_url = "http://192.168.1.73:8080/";
+        base_url = "http://83.212.101.67:80/";
         json_user_id = getIntent().getExtras().getString("json_user_id");
 
         tx1.setVisibility(View.INVISIBLE);

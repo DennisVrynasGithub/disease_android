@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            base_url = "http://192.168.1.73:8080/disease_login.php";
+            base_url = "http://83.212.101.67:80/disease_login.php";
 
             try {
                 String user_email = params[0];
