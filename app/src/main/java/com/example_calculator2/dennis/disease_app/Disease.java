@@ -25,6 +25,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Objects;
 
 public class Disease extends AppCompatActivity {
 
@@ -50,15 +51,20 @@ public class Disease extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new BackgroundWorker().execute(et3.getText().toString());
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(Disease.this, DisplayListView.class);
-                        intent.putExtra("Json_data", Json);
-                        startActivity(intent);
-                    }
-                }, 9000);
+                if (Objects.equals(et3.getText().toString(),"")){
+                    Toast.makeText(Disease.this, "Enter disease", Toast.LENGTH_LONG).show();
+                }else {
+                    new BackgroundWorker().execute(et3.getText().toString());
+                    Toast.makeText(Disease.this, "Please wait....loading", Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(Disease.this, DisplayListView.class);
+                            intent.putExtra("Json_data", Json);
+                            startActivity(intent);
+                        }
+                    }, 9000);
+                }
             }
         });
 
@@ -108,12 +114,10 @@ public class Disease extends AppCompatActivity {
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
-//                    stringBuilder.append(line).append("\n");
                 }
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-//                String result_2 = stringBuilder.toString().trim();
                 return result;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -123,9 +127,6 @@ public class Disease extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-//            alertDialog.setMessage(result);
-//            alertDialog.show();
-//            tx_result.setText(result);
             Json = result;
         }
 

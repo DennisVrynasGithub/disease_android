@@ -93,4 +93,6 @@
     <string name="q37">your disease</string>
     <string name="q49">At what age found blood pressure?</string>
     <string name="q48">Have you stopped habits that burden the situation?</string>
+    <string name="register_failed">REGISTER FAILED</string>
+    <string name="register_successful">REGISTER SUCCESSFUL</string>
 </resources>

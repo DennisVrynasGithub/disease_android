@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,6 +25,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Objects;
 
 public class Symptom extends AppCompatActivity {
 
@@ -49,15 +51,20 @@ public class Symptom extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new BackgroundWorker().execute(et1.getText().toString());
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(Symptom.this, DisplayListView1.class);
-                        intent.putExtra("Json_data", Json);
-                        startActivity(intent);
-                    }
-                }, 9000);
+                if (Objects.equals(et1.getText().toString(),"")){
+                    Toast.makeText(Symptom.this, "Enter symptom", Toast.LENGTH_LONG).show();
+                }else {
+                    new BackgroundWorker().execute(et1.getText().toString());
+                    Toast.makeText(Symptom.this, "Please wait....loading", Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(Symptom.this, DisplayListView1.class);
+                            intent.putExtra("Json_data", Json);
+                            startActivity(intent);
+                        }
+                    }, 9000);
+                }
             }
         });
 

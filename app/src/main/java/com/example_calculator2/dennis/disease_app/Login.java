@@ -45,7 +45,15 @@ public class Login extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new BackgroundWorker().execute(et1.getText().toString(),et2.getText().toString());
+                if (Objects.equals(et1.getText().toString(),"")){
+                    Toast.makeText(Login.this, "Enter user email", Toast.LENGTH_LONG).show();
+                }else{
+                    if (Objects.equals(et2.getText().toString(),"")){
+                        Toast.makeText(Login.this, "Enter user password", Toast.LENGTH_LONG).show();
+                    }else{
+                        new BackgroundWorker().execute(et1.getText().toString(),et2.getText().toString());
+                    }
+                }
             }
         });
     }

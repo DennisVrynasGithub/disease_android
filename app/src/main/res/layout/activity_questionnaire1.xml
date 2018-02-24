@@ -7,6 +7,7 @@
     android:background="@android:color/black"
     tools:context="com.example_calculator2.dennis.disease_app.Questionnaire1">
 
+
     <Button
         android:id="@+id/btn_q1_send"
         android:layout_width="wrap_content"
@@ -727,5 +728,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
 
 </android.support.constraint.ConstraintLayout>
