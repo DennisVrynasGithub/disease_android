@@ -49,7 +49,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:text="@string/login"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="@android:color/holo_green_dark"
         android:textColorHint="@android:color/holo_orange_dark"
         android:textSize="18sp"
         android:textStyle="bold"
