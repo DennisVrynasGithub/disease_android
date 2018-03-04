@@ -3,7 +3,6 @@ package com.example_calculator2.dennis.disease_app;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -13,21 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.v4.content.ContextCompat.startActivity;
 
 ///**
 // * Created by Dennis on 9/1/2018.
@@ -36,11 +22,11 @@ import static android.support.v4.content.ContextCompat.startActivity;
 class SymptomAdapter extends ArrayAdapter {
 
     private List list = new ArrayList();
-    Button btn_description;
-    String Json;
+    private Context c;
 
     SymptomAdapter(Context context, int resource) {
         super(context, resource);
+        this.c = context;
     }
 
     @Override
@@ -74,6 +60,7 @@ class SymptomAdapter extends ArrayAdapter {
             playerHolder.column2 = row.findViewById(R.id.symptom_a2z);
             playerHolder.column3 = row.findViewById(R.id.symptom_name);
             playerHolder.column4 = row.findViewById(R.id.symptom_fact);
+            playerHolder.column5 = row.findViewById(R.id.button2);
             row.setTag(playerHolder);
         }else {
             playerHolder = (PlayerHolder)row.getTag();
@@ -84,64 +71,22 @@ class SymptomAdapter extends ArrayAdapter {
         playerHolder.column2.setText((symptoms.getA2z()));
         playerHolder.column3.setText((symptoms.getName()));
         playerHolder.column4.setText((symptoms.getFact()));
+        playerHolder.column5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(c.getApplicationContext(), ResultActivity.class);
+                intent.putExtra("Json_data", playerHolder.column1.getText().toString());
+                c.startActivity(intent);
 
+
+            }
+        });
         return row;
     }
 
     private static class PlayerHolder{
         TextView column1,column2,column3,column4;
+        Button column5;
     }
 
-//    private class BackgroundWorker extends AsyncTask<String, Void, String> {
-//        private String result;
-//
-//        @Override
-//        protected void onPreExecute() {
-//
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            String login_url = "http://192.168.1.73:8080/complete.php";
-//            try {
-//                String id = params[0];
-//                URL url = new URL(login_url);
-//                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-//                httpURLConnection.setRequestMethod("POST");
-//                httpURLConnection.setDoOutput(true);
-//                httpURLConnection.setDoInput(true);
-//                OutputStream outputStream = httpURLConnection.getOutputStream();
-//                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-//                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
-//                bufferedWriter.write(post_data);
-//                bufferedWriter.flush();
-//                bufferedWriter.close();
-//                outputStream.close();
-//                InputStream inputStream = httpURLConnection.getInputStream();
-//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-//                result = "";
-//                String line = "";
-//                while ((line = bufferedReader.readLine()) != null) {
-//                    result += line;
-//                }
-//                bufferedReader.close();
-//                inputStream.close();
-//                httpURLConnection.disconnect();
-//                return result;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//            Json = result;
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(Void... values) {
-//            super.onProgressUpdate(values);
-//        }
-//    }
 }

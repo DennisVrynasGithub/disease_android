@@ -93,6 +93,7 @@ public class Disease extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String login_url = "http://83.212.101.67:80/get_all_diseases.php";
+//            String login_url = "http://83.212.101.67:8010/index/getDisease";
             try {
                 String name = params[0];
                 URL url = new URL(login_url);
