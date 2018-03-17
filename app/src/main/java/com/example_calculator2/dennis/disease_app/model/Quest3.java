@@ -36,6 +36,15 @@ public class Quest3 {
     @Expose
     private String id_2;
 
+
+    @SerializedName("Date")
+    @Expose
+    private String Date;
+
+    @SerializedName("Score")
+    @Expose
+    private Integer Score;
+
     public Quest3(String gender, String age, String chronic_problem, String years, String medical, String other_illnes, String id_2) {
         this.gender = gender;
         this.age = age;
@@ -104,5 +113,21 @@ public class Quest3 {
 
     public void setId_2(String id_2) {
         this.id_2 = id_2;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String Date) {
+        this.Date = Date;
+    }
+
+    public Integer getScore() {
+        return Score;
+    }
+
+    public void setScore(Integer Score) {
+        this.Score = Score;
     }
 }

@@ -4,57 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@android:color/white"
     tools:context="com.example_calculator2.dennis.disease_app.Symptom">
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="393dp"
-        android:layout_height="419dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_symptom_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_symptom"
-        app:layout_constraintVertical_bias="0.438"
-        app:srcCompat="@drawable/kidsymptoms" />
 
     <TextView
         android:id="@+id/textView_symptom"
         android:layout_width="214dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="type your symptom"
-        android:textColor="@android:color/holo_orange_dark"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/type_your_symptoms"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView73" />
 
     <EditText
         android:id="@+id/editText_symptom"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:hint="symptom"
+        android:hint="@string/symptom"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textColorHint="@android:color/holo_orange_dark"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_symptom" />
 
+    <Button
+        android:id="@+id/btn_symptom"
+        android:layout_width="111dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:drawableRight="@drawable/rsz_bla7"
+        android:text="@string/find_it"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_symptom" />
+
+    <Button
+        android:id="@+id/btn_symptom_back"
+        android:layout_width="99dp"
+        android:layout_height="47dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/rsz_1ka4"
+        android:text="@string/back"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
-        android:id="@+id/textView_result_symptom"
-        android:layout_width="359dp"
-        android:layout_height="361dp"
-        android:layout_marginBottom="76dp"
+        android:id="@+id/textView73"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableRight="@drawable/rsz_bla3"
+        android:text="@string/symptom"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="387dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -62,68 +100,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_symptom"
-        app:layout_constraintVertical_bias="0.401" />
-
-    <Button
-        android:id="@+id/btn_symptom"
-        android:layout_width="70dp"
-        android:layout_height="47dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:background="@android:color/transparent"
-        android:text="Find it"
-        android:textColor="@android:color/holo_green_dark"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
-        app:layout_constraintStart_toEndOf="@+id/editText_symptom"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_symptom_back"
-        android:layout_width="70dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="188dp"
-        android:background="@android:color/transparent"
-        android:text="BACK"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="89dp"
-        android:layout_height="77dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_symptom_back"
-        app:layout_constraintHorizontal_bias="0.171"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/injection" />
-
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="94dp"
-        android:layout_height="86dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_result_symptom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.873"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_symptom"
-        app:layout_constraintVertical_bias="0.1"
-        app:srcCompat="@drawable/injection" />
+        app:srcCompat="@drawable/bla7" />
 
 </android.support.constraint.ConstraintLayout>

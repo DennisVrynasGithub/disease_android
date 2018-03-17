@@ -33,6 +33,14 @@ public class Quest6 {
     @Expose
     private String id_2;
 
+    @SerializedName("Date")
+    @Expose
+    private String Date;
+
+    @SerializedName("Score")
+    @Expose
+    private Integer Score;
+
     public Quest6(String gender, String age, String heredity_history, String illnes_heredity, String treatment, String id_2) {
         this.gender = gender;
         this.age = age;
@@ -92,5 +100,21 @@ public class Quest6 {
 
     public void setId_2(String id_2) {
         this.id_2 = id_2;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String Date) {
+        this.Date = Date;
+    }
+
+    public Integer getScore() {
+        return Score;
+    }
+
+    public void setScore(Integer Score) {
+        this.Score = Score;
     }
 }

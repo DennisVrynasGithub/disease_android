@@ -23,7 +23,6 @@ import java.net.URLEncoder;
 public class ResultActivity extends AppCompatActivity {
 
     private String Json,disease_id;
-     Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +30,17 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         disease_id = getIntent().getExtras().getString("Json_data");
-        btn = findViewById(R.id.button3);
 
         new BackgroundWorker().execute(disease_id.toString());
-//       btn.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View view) {
                new Handler().postDelayed(new Runnable() {
                    @Override
                    public void run() {
                        Intent intent = new Intent(ResultActivity.this, DisplayListView.class);
                        intent.putExtra("Json_data", Json);
                        startActivity(intent);
+                       ResultActivity.this.finish();
                    }
-               }, 8000);
-//           }
-//       });
-
+               }, 7000);
     }
 
     private class BackgroundWorker extends AsyncTask<String, Void, String> {

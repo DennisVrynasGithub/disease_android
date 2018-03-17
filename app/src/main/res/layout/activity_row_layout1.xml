@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/symptom_id"
@@ -12,46 +11,51 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="19dp"
         android:text="TextView"
-        android:textColor="@android:color/holo_orange_dark" />
-
-    <TextView
-        android:id="@+id/symptom_a2z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/symptom_id"
-        android:layout_marginStart="12dp"
-        android:layout_toEndOf="@+id/symptom_id"
-        android:text="TextView"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/symptom_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/symptom_a2z"
-        android:layout_marginStart="14dp"
-        android:layout_toEndOf="@+id/symptom_a2z"
+        android:layout_alignBaseline="@+id/symptom_id"
+        android:layout_alignBottom="@+id/symptom_id"
+        android:layout_toEndOf="@+id/symptom_id"
         android:text="TextView"
-        android:textColor="@android:color/holo_orange_dark" />
+        android:textColor="@android:color/black"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/symptom_a2z"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/symptom_name"
+        android:layout_alignBottom="@+id/symptom_name"
+        android:layout_marginStart="47dp"
+        android:layout_toEndOf="@+id/symptom_id"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/symptom_fact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/symptom_name"
-        android:layout_alignBottom="@+id/symptom_name"
-        android:layout_marginStart="34dp"
-        android:layout_toEndOf="@+id/symptom_name"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/symptom_id"
+        android:layout_marginTop="17dp"
         android:text="TextView"
-        android:textColor="@android:color/holo_orange_dark" />
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/symptom_name"
-        android:layout_below="@+id/symptom_name"
-        android:layout_marginTop="25dp"
-        android:text="Button" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/symptom_name"
+        android:background="@android:color/transparent"
+        android:drawableRight="@drawable/rsz_sa3"
+        android:text="details"
+        android:textAllCaps="false" />
 
 </RelativeLayout>

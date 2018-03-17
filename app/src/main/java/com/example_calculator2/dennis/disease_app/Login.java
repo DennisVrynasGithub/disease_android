@@ -5,14 +5,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -27,7 +30,7 @@ import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
-    Button btn1, btn3;
+    Button btn1, btn3, btn2;
     EditText et1, et2;
     String base_url, json_user_id;
     Integer metavliti;
@@ -39,30 +42,42 @@ public class Login extends AppCompatActivity {
 
         btn1 = findViewById(R.id.btn_login2);
         btn3 = findViewById(R.id.btn_symptom);
+        btn2 = findViewById(R.id.button5);
         et1 = findViewById(R.id.et_user_email);
         et2 = findViewById(R.id.et_user_password);
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Objects.equals(et1.getText().toString(),"")){
+                if (Objects.equals(et1.getText().toString(), "")) {
                     Toast.makeText(Login.this, "Enter user email", Toast.LENGTH_LONG).show();
-                }else{
-                    if (Objects.equals(et2.getText().toString(),"")){
+                } else {
+                    if (Objects.equals(et2.getText().toString(), "")) {
                         Toast.makeText(Login.this, "Enter user password", Toast.LENGTH_LONG).show();
-                    }else{
-                        new BackgroundWorker().execute(et1.getText().toString(),et2.getText().toString());
+                    } else {
+                        new BackgroundWorker().execute(et1.getText().toString(), et2.getText().toString());
                     }
                 }
             }
         });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, Dashboard.class);
+                startActivity(intent);
+                Login.this.finish();
+            }
+        });
+
     }
 
     private class BackgroundWorker extends AsyncTask<String, Void, String> {
         private String result;
 
         @Override
-        protected void onPreExecute() { }
+        protected void onPreExecute() {
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -78,7 +93,7 @@ public class Login extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode(user_email, "UTF-8") +  "&" + URLEncoder.encode("user_password", "UTF-8") + "=" + URLEncoder.encode(user_password, "UTF-8");
+                String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode(user_email, "UTF-8") + "&" + URLEncoder.encode("user_password", "UTF-8") + "=" + URLEncoder.encode(user_password, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -105,20 +120,20 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             json_user_id = result;
-            if (Objects.equals(json_user_id, "0 results")){
+            if (Objects.equals(json_user_id, "0 results")) {
                 Toast.makeText(Login.this, result, Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 try {
                     metavliti = Integer.parseInt(json_user_id);
                     if (metavliti > 0) {
                         Intent intent = new Intent(Login.this, Welcome.class);
                         intent.putExtra("json_user_id", json_user_id);
                         intent.putExtra("json_user_email", et1.getText().toString());
+                        intent.putExtra("json_user_password", et2.getText().toString());
                         startActivity(intent);
                         Login.this.finish();
                     }
-                }
-                catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     Toast.makeText(Login.this, "Connection failed", Toast.LENGTH_SHORT).show();
                 }
             }

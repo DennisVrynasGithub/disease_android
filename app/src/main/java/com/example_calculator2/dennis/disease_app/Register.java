@@ -39,7 +39,7 @@ public class Register extends AppCompatActivity {
         tx1.setVisibility(View.INVISIBLE);
         tx2.setVisibility(View.INVISIBLE);
         et1 = findViewById(R.id.editText_user_name1);
-        et2 = findViewById(R.id.editText_user_pasword2);
+        et2 = findViewById(R.id.editText13);
         et3 = findViewById(R.id.editText_user_email2);
         et4 = findViewById(R.id.editText_country);
         et5 = findViewById(R.id.editText_gender);

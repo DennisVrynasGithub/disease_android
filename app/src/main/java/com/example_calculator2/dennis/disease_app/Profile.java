@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Profile extends AppCompatActivity {
 
-    String json_user_id, base_url, json_user_email;
+    String json_user_id, base_url, json_user_email,json_user_password;
     EditText et1, et2, et3, et4;
     Button btn1,btn2,btn3,btn4,btn5;
     TextView tx1,tx2,tx3,tx4;
@@ -55,6 +55,7 @@ public class Profile extends AppCompatActivity {
         base_url = "http://83.212.101.67:80/";
         json_user_id = getIntent().getExtras().getString("json_user_id");
         json_user_email = getIntent().getExtras().getString("json_user_email");
+        json_user_password = getIntent().getExtras().getString("json_user_password");
 
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,7 @@ public class Profile extends AppCompatActivity {
                 Intent intent = new Intent(Profile.this, Welcome.class);
                 intent.putExtra("json_user_id", json_user_id);
                 intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
                 Profile.this.finish();
 

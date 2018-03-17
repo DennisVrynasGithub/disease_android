@@ -29,10 +29,10 @@ import java.util.Objects;
 
 public class Disease extends AppCompatActivity {
 
-    protected TextView tx3,tx_result;
+    protected TextView tx3;
     protected EditText et3;
     protected Button btn,btn1;
-    private String Json, json_user_id,json_user_email;
+    private String Json, json_user_id,json_user_email,json_user_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,9 @@ public class Disease extends AppCompatActivity {
 
         json_user_id = getIntent().getExtras().getString("json_user_id");
         json_user_email = getIntent().getExtras().getString("json_user_email");
+        json_user_password = getIntent().getExtras().getString("json_user_password");
 
         tx3 = findViewById(R.id.textView3);
-        tx_result = findViewById(R.id.textView_result_disease);
         et3 = findViewById(R.id.editText3);
         btn = findViewById(R.id.btn_find_disease);
         btn1 = findViewById(R.id.btn_disease_back);
@@ -74,6 +74,7 @@ public class Disease extends AppCompatActivity {
                 Intent intent = new Intent(Disease.this, Welcome.class);
                 intent.putExtra("json_user_id", json_user_id);
                 intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
                 Disease.this.finish();
             }

@@ -38,14 +38,42 @@
         <activity android:name=".DisplayListView" />
         <activity android:name=".DisplayListView1" />
         <activity android:name=".FindQuestionnaire" />
-        <activity android:name=".Questionnaire1" />
-        <activity android:name=".Questionnaire2" />
-        <activity android:name=".Questionnaire3" />
-        <activity android:name=".Questionnaire4" />
-        <activity android:name=".Questionnaire5" />
-        <activity android:name=".Questionnaire6" />
+        <activity
+            android:name=".Questionnaire1"
+
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Questionnaire2"
+
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Questionnaire3"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Questionnaire4"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Questionnaire5"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Questionnaire6"
+            android:screenOrientation="landscape" />
         <activity android:name=".Profile" />
-        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".ResultActivity" />
+        <activity android:name=".Admin" />
+        <activity android:name=".DisplayListView2" />
+        <activity android:name=".Result_Admin" />
+        <activity android:name=".DisplayListViewQ2" />
+        <activity android:name=".Result_admin_q1" />
+        <activity android:name=".DisplayListViewQ1" />
+        <activity android:name=".Result_admin_q3" />
+        <activity android:name=".Result_admin_q4" />
+        <activity android:name=".Result_admin_q5" />
+        <activity android:name=".Result_admin_q6" />
+        <activity android:name=".DisplayListViewQ3" />
+        <activity android:name=".DisplayListVIewQ4" />
+        <activity android:name=".DisplayListViewQ5" />
+        <activity android:name=".DisplayListViewQ6"></activity>
     </application>
 
 </manifest>

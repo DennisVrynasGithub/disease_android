@@ -58,7 +58,9 @@ public interface User {
                               @Field("medication") String medication,
                               @Field("illnes") String illnes,
                               @Field("procedure_1") String procedure_1,
-                              @Field("id_2") String id_2);
+                              @Field("id_2") String id_2,
+                              @Field("Date") String Date,
+                              @Field("Score") Integer Score);
 
 
     @FormUrlEncoded
@@ -68,7 +70,9 @@ public interface User {
                               @Field("illnes_history") String illnes_history,
                               @Field("succeed_time") String succeed_time,
                               @Field("medical_history") String medical_history,
-                              @Field("id_2") String id_2);
+                              @Field("id_2") String id_2,
+                              @Field("Date") String Date,
+                              @Field("Score") Integer Score);
 
 
     @FormUrlEncoded
@@ -79,7 +83,9 @@ public interface User {
                               @Field("years") String years,
                               @Field("medical") String medical,
                               @Field("other_illnes") String other_illnes,
-                              @Field("id_2") String id_2);
+                              @Field("id_2") String id_2,
+                              @Field("Date") String Date,
+                              @Field("Score") Integer Score);
 
 
     @FormUrlEncoded
@@ -90,7 +96,9 @@ public interface User {
                               @Field("caused_other") String caused_other,
                               @Field("treatment") String treatment,
                               @Field("time") String time,
-                              @Field("id_2") String id_2);
+                              @Field("id_2") String id_2,
+                              @Field("Date") String Date,
+                              @Field("Score") Integer Score);
 
 
     @FormUrlEncoded
@@ -101,7 +109,9 @@ public interface User {
                               @Field("medical") String medical,
                               @Field("side_effect") String side_effect,
                               @Field("new_medical") String new_medical,
-                              @Field("id_2") String id_2);
+                              @Field("id_2") String id_2,
+                              @Field("Date") String Date,
+                              @Field("Score") Integer Score);
 
 
     @FormUrlEncoded
@@ -111,7 +121,9 @@ public interface User {
                               @Field("heredity_history") String heredity_history,
                               @Field("illnes_heredity") String illnes_heredity,
                               @Field("treatment") String treatment,
-                              @Field("id_2") String id_2);
+                              @Field("id_2") String id_2,
+                              @Field("Date") String Date,
+                              @Field("Score") Integer Score);
 
 
 

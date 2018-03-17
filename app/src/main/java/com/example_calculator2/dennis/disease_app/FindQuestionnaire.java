@@ -9,7 +9,7 @@ import android.widget.Button;
 public class FindQuestionnaire extends AppCompatActivity {
 
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn;
-    String json_user_id, json_user_email;
+    String json_user_id, json_user_email,json_user_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,7 @@ public class FindQuestionnaire extends AppCompatActivity {
 
         json_user_id = getIntent().getExtras().getString("json_user_id");
         json_user_email = getIntent().getExtras().getString("json_user_email");
+        json_user_password = getIntent().getExtras().getString("json_user_password");
 
         btn1 = findViewById(R.id.btn_q1);
         btn2 = findViewById(R.id.btn_q2);
@@ -87,6 +88,7 @@ public class FindQuestionnaire extends AppCompatActivity {
                 Intent intent = new Intent(FindQuestionnaire.this, Welcome.class);
                 intent.putExtra("json_user_id", json_user_id);
                 intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
                 FindQuestionnaire.this.finish();
 

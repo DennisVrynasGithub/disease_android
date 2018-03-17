@@ -32,6 +32,15 @@ public class Quest2 {
     @Expose
     private String id_2;
 
+
+    @SerializedName("Date")
+    @Expose
+    private String Date;
+
+    @SerializedName("Score")
+    @Expose
+    private Integer Score;
+
     public Quest2() {
     }
 
@@ -90,5 +99,21 @@ public class Quest2 {
 
     public void setId_2(String id_2) {
         this.id_2 = id_2;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String Date) {
+        this.Date = Date;
+    }
+
+    public Integer getScore() {
+        return Score;
+    }
+
+    public void setScore(Integer Score) {
+        this.Score = Score;
     }
 }
