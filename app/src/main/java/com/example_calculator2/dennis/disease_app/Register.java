@@ -10,8 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example_calculator2.dennis.disease_app.activities.DashboardActivity;
 import com.example_calculator2.dennis.disease_app.model.Users;
-import com.example_calculator2.dennis.disease_app.service.User;
+import com.example_calculator2.dennis.disease_app.service.Api;
 
 import java.util.Objects;
 
@@ -51,7 +52,7 @@ public class Register extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Register.this, Dashboard.class);
+                Intent intent = new Intent(Register.this, DashboardActivity.class);
                 startActivity(intent);
                 Register.this.finish();
             }
@@ -83,7 +84,7 @@ public class Register extends AppCompatActivity {
                                              .addConverterFactory(GsonConverterFactory.create())
                                              .build();
 
-                                     User service = retrofit.create(User.class);
+                                     Api service = retrofit.create(Api.class);
                                      Users user = new Users();
                                      user.setUser_name(et1.getText().toString());
                                      user.setUser_password(et2.getText().toString());

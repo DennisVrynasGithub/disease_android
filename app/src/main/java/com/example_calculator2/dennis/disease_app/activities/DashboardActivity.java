@@ -1,4 +1,4 @@
-package com.example_calculator2.dennis.disease_app;
+package com.example_calculator2.dennis.disease_app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Dashboard extends AppCompatActivity {
+import com.example_calculator2.dennis.disease_app.Login;
+import com.example_calculator2.dennis.disease_app.R;
+import com.example_calculator2.dennis.disease_app.Register;
+
+public class DashboardActivity extends AppCompatActivity {
 
     protected TextView tx1, tx2;
     protected Button btn1, btn2;
@@ -27,18 +31,18 @@ public class Dashboard extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Dashboard.this, Login.class);
+                Intent intent = new Intent(DashboardActivity.this, Login.class);
                 startActivity(intent);
-                Dashboard.this.finish();
+                DashboardActivity.this.finish();
             }
         });
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Dashboard.this, Register.class);
+                Intent intent = new Intent(DashboardActivity.this, Register.class);
                 startActivity(intent);
-                Dashboard.this.finish();
+                DashboardActivity.this.finish();
             }
         });
     }

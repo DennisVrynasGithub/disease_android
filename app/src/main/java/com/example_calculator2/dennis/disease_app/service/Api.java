@@ -11,6 +11,7 @@ import com.example_calculator2.dennis.disease_app.model.Users;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -18,8 +19,7 @@ import retrofit2.http.POST;
 
 
 //Created by Dennis on 3/1/2018.
-
-public interface User {
+public interface Api {
 
     @FormUrlEncoded
     @POST("post_register.php")
@@ -52,15 +52,8 @@ public interface User {
 
 
     @FormUrlEncoded
-    @POST("questionnaire1.php")
-    Call<Quest1> insertQuset1(@Field("gender") String gender,
-                              @Field("age") String age,
-                              @Field("medication") String medication,
-                              @Field("illnes") String illnes,
-                              @Field("procedure_1") String procedure_1,
-                              @Field("id_2") String id_2,
-                              @Field("Date") String Date,
-                              @Field("Score") Integer Score);
+    @POST("quest1")
+    Call<Quest1> insertQuest1(@Body Quest1 quest1);
 
 
     @FormUrlEncoded
@@ -124,7 +117,4 @@ public interface User {
                               @Field("id_2") String id_2,
                               @Field("Date") String Date,
                               @Field("Score") Integer Score);
-
-
-
 }

@@ -13,7 +13,7 @@ public class DisplayListView2 extends AppCompatActivity {
 
     JSONObject jsonObject;
     JSONArray jsonArray;
-    Admin_user_list admin_user_list;
+    AdminUserList admin_userList;
     ListView listView;
 
     @Override
@@ -24,8 +24,8 @@ public class DisplayListView2 extends AppCompatActivity {
         //Receive Json
         String json_string = getIntent().getExtras().getString("Json_data");
         listView = findViewById(R.id.listview_admin);
-        admin_user_list = new Admin_user_list(this,R.layout.activity_row_admin_user_list);
-        listView.setAdapter(admin_user_list);
+        admin_userList = new AdminUserList(this,R.layout.activity_row_admin_user_list);
+        listView.setAdapter(admin_userList);
         try {
             // Transform json to json object
             jsonObject = new JSONObject(json_string);
@@ -39,7 +39,7 @@ public class DisplayListView2 extends AppCompatActivity {
                 user_id = JO.getString("user_id");
                 user_name = JO.getString("user_name");
                 Admin_user_list_result symptoms = new Admin_user_list_result(user_id, user_name);
-                admin_user_list.add(symptoms);
+                admin_userList.add(symptoms);
                 count++;
             }
         } catch (JSONException e) {

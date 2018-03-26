@@ -3,18 +3,13 @@ package com.example_calculator2.dennis.disease_app;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example_calculator2.dennis.disease_app.activities.DashboardActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -64,7 +59,7 @@ public class Login extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this, Dashboard.class);
+                Intent intent = new Intent(Login.this, DashboardActivity.class);
                 startActivity(intent);
                 Login.this.finish();
             }
@@ -144,5 +139,4 @@ public class Login extends AppCompatActivity {
             super.onProgressUpdate(values);
         }
     }
-
 }

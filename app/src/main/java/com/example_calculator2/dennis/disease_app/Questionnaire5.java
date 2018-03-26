@@ -7,13 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example_calculator2.dennis.disease_app.model.Quest4;
 import com.example_calculator2.dennis.disease_app.model.Quest5;
-import com.example_calculator2.dennis.disease_app.service.User;
+import com.example_calculator2.dennis.disease_app.service.Api;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -547,7 +545,7 @@ public class Questionnaire5 extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-                User service = retrofit.create(User.class);
+                Api service = retrofit.create(Api.class);
                 Quest5 quest5 = new Quest5();
                 quest5.setAge(radioButton_string2);
                 quest5.setIllnes(radioButton_string3);

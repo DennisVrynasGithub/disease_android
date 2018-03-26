@@ -1,18 +1,18 @@
 package com.example_calculator2.dennis.disease_app;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example_calculator2.dennis.disease_app.model.Quest1;
-import com.example_calculator2.dennis.disease_app.service.User;
+import com.example_calculator2.dennis.disease_app.service.Api;
+import com.example_calculator2.dennis.disease_app.utils.G;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +29,8 @@ public class Questionnaire1 extends AppCompatActivity {
     Integer in1, in2, in3, in4, in5;
     LinearLayout ln1, ln2, ln3, ln4, ln5;
     EditText et;
+
+    private Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,11 @@ public class Questionnaire1 extends AppCompatActivity {
         btn_dn = findViewById(R.id.q1_dn);
         btn_dp = findViewById(R.id.q1_pd);
 
-        base_url = "http://83.212.101.67:80/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
 
         tx1.setVisibility(View.INVISIBLE);
         tx2.setVisibility(View.INVISIBLE);
@@ -465,12 +471,6 @@ public class Questionnaire1 extends AppCompatActivity {
                     tx9.setVisibility(View.VISIBLE);
                 }
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(base_url)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                User service = retrofit.create(User.class);
                 Quest1 quest1 = new Quest1();
                 quest1.setAge(radioButton_string2);
                 quest1.setIllnes(radioButton_string3);
@@ -481,15 +481,7 @@ public class Questionnaire1 extends AppCompatActivity {
                 quest1.setDate(et.getText().toString());
                 quest1.setScore(sum);
 
-                Call<Quest1> call = service.insertQuset1(quest1.getGender(),
-                        quest1.getAge(),
-                        quest1.getMedication(),
-                        quest1.getIllnes(),
-                        quest1.getProcedure_1(),
-                        quest1.getId_2(),
-                        quest1.getDate(),
-                        quest1.getScore()
-                );
+                Call<Quest1> call = api.insertQuest1(quest1);
 
                 call.enqueue(new Callback<Quest1>() {
                     @Override

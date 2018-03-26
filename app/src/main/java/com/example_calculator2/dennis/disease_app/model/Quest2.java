@@ -32,7 +32,6 @@ public class Quest2 {
     @Expose
     private String id_2;
 
-
     @SerializedName("Date")
     @Expose
     private String Date;

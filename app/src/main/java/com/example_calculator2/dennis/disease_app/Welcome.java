@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example_calculator2.dennis.disease_app.activities.DashboardActivity;
+
 import java.util.Objects;
 
 public class Welcome extends AppCompatActivity {
@@ -74,7 +76,7 @@ public class Welcome extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Welcome.this, Dashboard.class);
+                Intent intent = new Intent(Welcome.this, DashboardActivity.class);
                 startActivity(intent);
                 Welcome.this.finish();
             }

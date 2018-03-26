@@ -17,12 +17,12 @@ import java.util.List;
  * Created by Dennis on 8/3/2018.
  */
 
-public class Admin_user_list extends ArrayAdapter {
+public class AdminUserList extends ArrayAdapter {
 
     private List list = new ArrayList();
     private Context c;
 
-    Admin_user_list(Context context, int resource) {
+    AdminUserList(Context context, int resource) {
         super(context, resource);
         this.c = context;
     }
@@ -49,11 +49,11 @@ public class Admin_user_list extends ArrayAdapter {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View row;
         row = convertView;
-        final Admin_user_list.PlayerHolder playerHolder;
+        final AdminUserList.PlayerHolder playerHolder;
         if (row == null){
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.activity_row_admin_user_list,parent,false);
-            playerHolder = new Admin_user_list.PlayerHolder();
+            playerHolder = new AdminUserList.PlayerHolder();
             playerHolder.column1 = row.findViewById(R.id.tx_id);
             playerHolder.column2 = row.findViewById(R.id.tx_name);
             playerHolder.column5 = row.findViewById(R.id.btn_admin_user);
@@ -64,7 +64,7 @@ public class Admin_user_list extends ArrayAdapter {
             playerHolder.column10 = row.findViewById(R.id.btn_admin_q6);
             row.setTag(playerHolder);
         }else {
-            playerHolder = (Admin_user_list.PlayerHolder)row.getTag();
+            playerHolder = (AdminUserList.PlayerHolder)row.getTag();
         }
         final Admin_user_list_result symptoms = (Admin_user_list_result) this.getItem(position);
         assert symptoms != null;
