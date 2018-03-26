@@ -21,59 +21,59 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
+            android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".Login"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".Disease"
+            android:name=".activities.DiseaseActivity"
             android:label="@string/title_activity_disease" />
         <activity
-            android:name=".Symptom"
+            android:name=".activities.SymptomActivity"
             android:label="@string/title_activity_symptom" />
         <activity
-            android:name=".Welcome"
+            android:name=".activities.WelcomeActivity"
             android:label="@string/title_activity_welcome" />
-        <activity android:name=".DisplayListView" />
-        <activity android:name=".DisplayListView1" />
-        <activity android:name=".FindQuestionnaire" />
+        <activity android:name=".listView.DisplayListView" />
+        <activity android:name=".listView.DisplayListView1" />
+        <activity android:name=".activities.FindQuestionnaireActivity" />
         <activity
-            android:name=".Questionnaire1"
+            android:name=".activities.Questionnaire1Activity"
 
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Questionnaire2"
+            android:name=".activities.Questionnaire2Activity"
 
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Questionnaire3"
+            android:name=".activities.Questionnaire3Activity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Questionnaire4"
+            android:name=".activities.Questionnaire4Activity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Questionnaire5"
+            android:name=".activities.Questionnaire5Activity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Questionnaire6"
+            android:name=".activities.Questionnaire6Activity"
             android:screenOrientation="landscape" />
-        <activity android:name=".Profile" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".Admin" />
-        <activity android:name=".DisplayListView2" />
-        <activity android:name=".Result_Admin" />
-        <activity android:name=".DisplayListViewQ2" />
-        <activity android:name=".Result_admin_q1" />
-        <activity android:name=".DisplayListViewQ1" />
-        <activity android:name=".Result_admin_q3" />
-        <activity android:name=".Result_admin_q4" />
-        <activity android:name=".Result_admin_q5" />
-        <activity android:name=".Result_admin_q6" />
-        <activity android:name=".DisplayListViewQ3" />
-        <activity android:name=".DisplayListVIewQ4" />
-        <activity android:name=".DisplayListViewQ5" />
-        <activity android:name=".DisplayListViewQ6"></activity>
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.ResultActivity" />
+        <activity android:name=".activities.AdminActivity" />
+        <activity android:name=".listView.DisplayListView2" />
+        <activity android:name=".activities.ResultAdminActivity" />
+        <activity android:name=".listView.DisplayListViewQ2" />
+        <activity android:name=".activities.ResultAdminQ1Activity" />
+        <activity android:name=".listView.DisplayListViewQ1" />
+        <activity android:name=".activities.ResultAdminQ3Activity" />
+        <activity android:name=".activities.ResultAdminQ4Activity" />
+        <activity android:name=".activities.ResultAdminQ5Activity" />
+        <activity android:name=".activities.ResultAdminQ6Activity" />
+        <activity android:name=".listView.DisplayListViewQ3" />
+        <activity android:name=".listView.DisplayListVIewQ4" />
+        <activity android:name=".listView.DisplayListViewQ5" />
+        <activity android:name=".listView.DisplayListViewQ6"></activity>
     </application>
 
 </manifest>

@@ -8,14 +8,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example_calculator2.dennis.disease_app.Login;
 import com.example_calculator2.dennis.disease_app.R;
-import com.example_calculator2.dennis.disease_app.Register;
 
 public class DashboardActivity extends AppCompatActivity {
 
     protected TextView tx1, tx2;
-    protected Button btn1, btn2;
+    protected Button button_dashboard_login, button_dashboard_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,22 +23,22 @@ public class DashboardActivity extends AppCompatActivity {
 
         tx1 = findViewById(R.id.textView1);
         tx2 = findViewById(R.id.textView2);
-        btn1 = findViewById(R.id.btn_login);
-        btn2 = findViewById(R.id.btn_register);
+        button_dashboard_login = findViewById(R.id.btn_login);
+        button_dashboard_register = findViewById(R.id.btn_register);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        button_dashboard_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, Login.class);
+                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
                 startActivity(intent);
                 DashboardActivity.this.finish();
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        button_dashboard_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, Register.class);
+                Intent intent = new Intent(DashboardActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 DashboardActivity.this.finish();
             }

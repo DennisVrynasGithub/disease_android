@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example_calculator2.dennis.disease_app.DisplayListView2">
+    tools:context="com.example_calculator2.dennis.disease_app.listView.DisplayListView2">
 
     <ListView
         android:id="@+id/listview_admin"

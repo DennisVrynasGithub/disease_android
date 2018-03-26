@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example_calculator2.dennis.disease_app.Login">
+    tools:context="com.example_calculator2.dennis.disease_app.activities.LoginActivity">
 
     <EditText
         android:id="@+id/et_user_email"

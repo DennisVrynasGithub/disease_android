@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context="com.example_calculator2.dennis.disease_app.Disease">
+    tools:context="com.example_calculator2.dennis.disease_app.activities.DiseaseActivity">
 
     <TextView
         android:id="@+id/textView3"

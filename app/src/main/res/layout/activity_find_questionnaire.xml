@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:scrollbars="vertical"
-    tools:context="com.example_calculator2.dennis.disease_app.FindQuestionnaire">
+    tools:context="com.example_calculator2.dennis.disease_app.activities.FindQuestionnaireActivity">
 
     <TextView
         android:id="@+id/textView"
