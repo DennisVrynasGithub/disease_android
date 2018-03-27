@@ -1,5 +1,7 @@
 package com.example_calculator2.dennis.disease_app.service;
 
+import com.example_calculator2.dennis.disease_app.model.LoginRequest;
+import com.example_calculator2.dennis.disease_app.model.LoginResponse;
 import com.example_calculator2.dennis.disease_app.model.Quest1;
 import com.example_calculator2.dennis.disease_app.model.Quest2;
 import com.example_calculator2.dennis.disease_app.model.Quest3;
@@ -8,18 +10,16 @@ import com.example_calculator2.dennis.disease_app.model.Quest5;
 import com.example_calculator2.dennis.disease_app.model.Quest6;
 import com.example_calculator2.dennis.disease_app.model.Users;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-
 
 //Created by Dennis on 3/1/2018.
 public interface Api {
+    @POST("loginUser")
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @FormUrlEncoded
     @POST("post_register.php")
