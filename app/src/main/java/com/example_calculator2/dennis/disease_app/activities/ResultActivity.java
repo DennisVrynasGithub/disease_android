@@ -5,9 +5,15 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example_calculator2.dennis.disease_app.listView.DisplayListView;
 import com.example_calculator2.dennis.disease_app.R;
+import com.example_calculator2.dennis.disease_app.listView.DisplayListView1;
+import com.example_calculator2.dennis.disease_app.service.Api;
+import com.example_calculator2.dennis.disease_app.utils.G;
+import com.google.gson.JsonArray;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,9 +26,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ResultActivity extends AppCompatActivity {
 
-    private String Json,disease_id;
+    private String disease_id, jsonString;
+
+    private Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,68 +45,43 @@ public class ResultActivity extends AppCompatActivity {
 
         disease_id = getIntent().getExtras().getString("Json_data");
 
-        new BackgroundWorker().execute(disease_id.toString());
-               new Handler().postDelayed(new Runnable() {
-                   @Override
-                   public void run() {
-                       Intent intent = new Intent(ResultActivity.this, DisplayListView.class);
-                       intent.putExtra("Json_data", Json);
-                       startActivity(intent);
-                       ResultActivity.this.finish();
-                   }
-               }, 7000);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
+
+        getDiseaseById(disease_id);
     }
 
-    private class BackgroundWorker extends AsyncTask<String, Void, String> {
-        private String result;
 
-        @Override
-        protected void onPreExecute() {
+    private void getDiseaseById(String diseaseId) {
+        if (diseaseId == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String login_url = "http://83.212.101.67:80/result_activity.php";
-            try {
-                String id = params[0];
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                StringBuilder stringBuilder = new StringBuilder();
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Call<JsonArray> jsonCall = api.getDiseaseById(diseaseId);
+        jsonCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                jsonString = response.body().toString();
+                Log.i("onResponse", jsonString);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(ResultActivity.this, DisplayListView.class);
+                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        startActivity(intent);
+                    }
+                }, 2000);
+
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Json = result;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("onFailure", t.toString());
+            }
+        });
     }
 }

@@ -10,10 +10,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example_calculator2.dennis.disease_app.R;
 import com.example_calculator2.dennis.disease_app.model.Quest2;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire1Request;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire1Response;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire2Request;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire2Response;
 import com.example_calculator2.dennis.disease_app.service.Api;
+import com.example_calculator2.dennis.disease_app.utils.G;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,15 +32,20 @@ public class Questionnaire2Activity extends AppCompatActivity {
     RadioGroup radioGroup1, radioGroup2,radioGroup3, radioGroup4;
     Button btn,btn_n1,btn_p2,btn_n2,btn_p3,btn_n3,btn_p4,btn_p5,btn_n4,btn_dn,btn_dp,btn_back;
     EditText et4,et;
-    String json_user_id,base_url, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4;
+    String json_user_id, json_user_password, json_user_email, base_url, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4;
     TextView tx1,tx2,tx3,tx4,tx5,tx6,tx7,tx8,tx9,TX1,TX2,TX3,TX4;
-    Integer in1, in2, in3, in4;
+    Integer in1, in2, in3, in4,sum;
     LinearLayout ln1,ln2,ln3,ln4;
 
+    private Api api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire2);
+
+        json_user_id = getIntent().getExtras().getString("json_user_id");
+        json_user_email = getIntent().getExtras().getString("json_user_email");
+        json_user_password = getIntent().getExtras().getString("json_user_password");
 
         radioGroup1 = findViewById(R.id.radiogroup21);
         radioGroup2 = findViewById(R.id.radiogroup22);
@@ -76,8 +87,11 @@ public class Questionnaire2Activity extends AppCompatActivity {
         btn_dp = findViewById(R.id.q2_dp);
         btn_dn = findViewById(R.id.q2_dn);
 
-        base_url = "http://83.212.101.67:80/";
-        json_user_id = getIntent().getExtras().getString("json_user_id");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
 
         tx1.setVisibility(View.INVISIBLE);
         tx2.setVisibility(View.INVISIBLE);
@@ -411,63 +425,104 @@ public class Questionnaire2Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                in1 = Integer.parseInt(radioButton_string2);
-                in2 = Integer.parseInt(radioButton_string3);
-                in3 = Integer.parseInt(radioButton_string4);
-                in4 = Integer.parseInt(radioButton_string);
-                Integer sum = in1 + in2 + in3 + in4;
-                if (sum >= 0 && sum <= 15) {
-                    tx1.setVisibility(View.VISIBLE);
-                    tx2.setVisibility(View.VISIBLE);
-                    tx3.setVisibility(View.VISIBLE);
-                }else if(sum >= 16 && sum <= 30){
-                    tx4.setVisibility(View.VISIBLE);
-                    tx5.setVisibility(View.VISIBLE);
-                    tx6.setVisibility(View.VISIBLE);
-                }else if (sum >= 31){
-                    tx7.setVisibility(View.VISIBLE);
-                    tx8.setVisibility(View.VISIBLE);
-                    tx9.setVisibility(View.VISIBLE);
+
+                if (radioButton_string == null || et4.getText().toString() == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null) {
+                    Toast.makeText(Questionnaire2Activity.this,"Invalid input!!!!",Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    in1 = Integer.parseInt(radioButton_string2);
+                    in2 = Integer.parseInt(radioButton_string3);
+                    in3 = Integer.parseInt(radioButton_string4);
+                    in4 = Integer.parseInt(radioButton_string);
+                    sum = in1 + in2 + in3 + in4;
+                    if (sum >= 0 && sum <= 15) {
+                        tx1.setVisibility(View.VISIBLE);
+                        tx2.setVisibility(View.VISIBLE);
+                        tx3.setVisibility(View.VISIBLE);
+                    } else if (sum >= 16 && sum <= 30) {
+                        tx4.setVisibility(View.VISIBLE);
+                        tx5.setVisibility(View.VISIBLE);
+                        tx6.setVisibility(View.VISIBLE);
+                    } else if (sum >= 31) {
+                        tx7.setVisibility(View.VISIBLE);
+                        tx8.setVisibility(View.VISIBLE);
+                        tx9.setVisibility(View.VISIBLE);
+                    }
+
+                    questionnaireTwo(et4.getText().toString(),
+                            radioButton_string,
+                            radioButton_string4,
+                            radioButton_string3,
+                            radioButton_string2,
+                            sum,
+                            json_user_id);
                 }
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(base_url)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+//                Quest2 quest2 = new Quest2();
+//                quest2.setAge(radioButton_string);
+//                quest2.setIllnes(radioButton_string2);
+//                quest2.setIllnes_history(radioButton_string4);
+//                quest2.setMedical_history(radioButton_string3);
+//                quest2.setId_2(json_user_id);
+//                quest2.setGender(et4.getText().toString());
+//                quest2.setDate(et.getText().toString());
+//                quest2.setScore(sum);
+//
+//                Call<Quest2> call = service.insertQuset2(quest2.getGender(),
+//                        quest2.getAge(),
+//                        quest2.getMedical_history(),
+//                        quest2.getIllnes(),
+//                        quest2.getIllnes_history(),
+//                        quest2.getId_2(),
+//                        quest2.getDate(),
+//                        quest2.getScore()
+//                );
+//
+//                call.enqueue(new Callback<Quest2>() {
+//                    @Override
+//                    public void onResponse(Call<Quest2> call, Response<Quest2> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Quest2> call, Throwable t) {
+//                        Log.d("onFailure", t.toString());
+//
+//                    }
+//                });
+            }
+        });
+    }
 
-                Api service = retrofit.create(Api.class);
-                Quest2 quest2 = new Quest2();
-                quest2.setAge(radioButton_string);
-                quest2.setIllnes(radioButton_string2);
-                quest2.setIllnes_history(radioButton_string4);
-                quest2.setMedical_history(radioButton_string3);
-                quest2.setId_2(json_user_id);
-                quest2.setGender(et4.getText().toString());
-                quest2.setDate(et.getText().toString());
-                quest2.setScore(sum);
+    private void questionnaireTwo(String editText,
+                                  String radioButton_string,
+                                  String radioButton_string4,
+                                  String radioButton_string3,
+                                  String radioButton_string2,
+                                  Integer sum,
+                                  String json_user_id) {
 
-                Call<Quest2> call = service.insertQuset2(quest2.getGender(),
-                        quest2.getAge(),
-                        quest2.getMedical_history(),
-                        quest2.getIllnes(),
-                        quest2.getIllnes_history(),
-                        quest2.getId_2(),
-                        quest2.getDate(),
-                        quest2.getScore()
-                );
+        if (radioButton_string == null || editText == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null || sum == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-                call.enqueue(new Callback<Quest2>() {
-                    @Override
-                    public void onResponse(Call<Quest2> call, Response<Quest2> response) {
+        Questionnaire2Request request = new Questionnaire2Request(editText, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, sum, json_user_id);
+        api.questionnaireTwo(request).enqueue(new Callback<Questionnaire2Response>() {
+            @Override
+            public void onResponse(Call<Questionnaire2Response> call, Response<Questionnaire2Response> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    Toast.makeText(Questionnaire2Activity.this, "Send complete", Toast.LENGTH_LONG).show();
+                } else {
+                    //error
+                    Toast.makeText(Questionnaire2Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                }
+            }
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<Quest2> call, Throwable t) {
-                        Log.d("onFailure", t.toString());
-
-                    }
-                });
+            @Override
+            public void onFailure(Call<Questionnaire2Response> call, Throwable t) {
+                Toast.makeText(Questionnaire2Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
             }
         });
     }

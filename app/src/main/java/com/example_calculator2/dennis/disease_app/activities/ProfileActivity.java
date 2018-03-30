@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example_calculator2.dennis.disease_app.R;
+import com.example_calculator2.dennis.disease_app.model.LoginRequest;
+import com.example_calculator2.dennis.disease_app.model.LoginResponse;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangeAgeRequest;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangeAgeResponse;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangeCountryRequest;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangeCountryResponse;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangeNameRequest;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangeNameResponse;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangePasswordRequest;
+import com.example_calculator2.dennis.disease_app.model.ProfileChangePasswordResponse;
 import com.example_calculator2.dennis.disease_app.model.Users;
 import com.example_calculator2.dennis.disease_app.service.Api;
 import com.example_calculator2.dennis.disease_app.utils.G;
@@ -85,31 +96,34 @@ public class ProfileActivity extends AppCompatActivity {
                 if (Objects.equals(editTextName.getText().toString(), "")) {
                     Toast.makeText(ProfileActivity.this, "Please enter new user name", Toast.LENGTH_SHORT).show();
                 } else {
-                    Users user = new Users();
-                    user.setUser_name(editTextName.getText().toString());
-                    user.setUser_email(json_user_email);
 
-                    Call<Users> call = api.updatename(user.getUser_name(),
-                            user.getUser_email()
-                    );
-
-                    call.enqueue(new Callback<Users>() {
-                        @Override
-                        public void onResponse(Call<Users> call, Response<Users> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Users> call, Throwable t) {
-                            Log.d("onFailure", t.toString());
-                        }
-                    });
-                    tx1.setVisibility(View.VISIBLE);
-                    tx2.setVisibility(View.INVISIBLE);
-                    tx3.setVisibility(View.INVISIBLE);
-                    tx4.setVisibility(View.INVISIBLE);
+                    changeName(json_user_email,editTextName.getText().toString());
+//                    Users user = new Users();
+//                    user.setUser_name(editTextName.getText().toString());
+//                    user.setUser_email(json_user_email);
+//
+//                    Call<Users> call = api.updatename(user.getUser_name(),
+//                            user.getUser_email()
+//                    );
+//
+//                    call.enqueue(new Callback<Users>() {
+//                        @Override
+//                        public void onResponse(Call<Users> call, Response<Users> response) {
+//                            if (response.isSuccessful()) {
+//                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<Users> call, Throwable t) {
+//                            Log.d("onFailure", t.toString());
+//                        }
+//                    });
+//
+//                    tx1.setVisibility(View.VISIBLE);
+//                    tx2.setVisibility(View.INVISIBLE);
+//                    tx3.setVisibility(View.INVISIBLE);
+//                    tx4.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -120,31 +134,34 @@ public class ProfileActivity extends AppCompatActivity {
                 if (Objects.equals(editTextPassword.getText().toString(), "")) {
                     Toast.makeText(ProfileActivity.this, "Please enter new user password", Toast.LENGTH_SHORT).show();
                 } else {
-                    Users user = new Users();
-                    user.setUser_name(editTextPassword.getText().toString());
-                    user.setUser_email(json_user_email);
 
-                    Call<Users> call = api.updatepassword(user.getUser_name(),
-                            user.getUser_email()
-                    );
+                    changeAge(json_user_email,editTextPassword.getText().toString());
 
-                    call.enqueue(new Callback<Users>() {
-                        @Override
-                        public void onResponse(Call<Users> call, Response<Users> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Users> call, Throwable t) {
-                            Log.d("onFailure", t.toString());
-                        }
-                    });
-                    tx1.setVisibility(View.INVISIBLE);
-                    tx2.setVisibility(View.VISIBLE);
-                    tx3.setVisibility(View.INVISIBLE);
-                    tx4.setVisibility(View.INVISIBLE);
+//                    Users user = new Users();
+//                    user.setUser_name(editTextPassword.getText().toString());
+//                    user.setUser_email(json_user_email);
+//
+//                    Call<Users> call = api.updatepassword(user.getUser_name(),
+//                            user.getUser_email()
+//                    );
+//
+//                    call.enqueue(new Callback<Users>() {
+//                        @Override
+//                        public void onResponse(Call<Users> call, Response<Users> response) {
+//                            if (response.isSuccessful()) {
+//                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<Users> call, Throwable t) {
+//                            Log.d("onFailure", t.toString());
+//                        }
+//                    });
+//                    tx1.setVisibility(View.INVISIBLE);
+//                    tx2.setVisibility(View.VISIBLE);
+//                    tx3.setVisibility(View.INVISIBLE);
+//                    tx4.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -155,31 +172,34 @@ public class ProfileActivity extends AppCompatActivity {
                 if (Objects.equals(editTextCountry.getText().toString(), "")) {
                     Toast.makeText(ProfileActivity.this, "Please enter new user country", Toast.LENGTH_SHORT).show();
                 } else {
-                    Users user = new Users();
-                    user.setUser_name(editTextCountry.getText().toString());
-                    user.setUser_email(json_user_email);
 
-                    Call<Users> call = api.updatecountry(user.getUser_name(),
-                            user.getUser_email()
-                    );
+                    changeCountry(json_user_email,editTextCountry.getText().toString());
 
-                    call.enqueue(new Callback<Users>() {
-                        @Override
-                        public void onResponse(Call<Users> call, Response<Users> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Users> call, Throwable t) {
-                            Log.d("onFailure", t.toString());
-                        }
-                    });
-                    tx1.setVisibility(View.INVISIBLE);
-                    tx2.setVisibility(View.INVISIBLE);
-                    tx3.setVisibility(View.VISIBLE);
-                    tx4.setVisibility(View.INVISIBLE);
+//                    Users user = new Users();
+//                    user.setUser_name(editTextCountry.getText().toString());
+//                    user.setUser_email(json_user_email);
+//
+//                    Call<Users> call = api.updatecountry(user.getUser_name(),
+//                            user.getUser_email()
+//                    );
+//
+//                    call.enqueue(new Callback<Users>() {
+//                        @Override
+//                        public void onResponse(Call<Users> call, Response<Users> response) {
+//                            if (response.isSuccessful()) {
+//                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<Users> call, Throwable t) {
+//                            Log.d("onFailure", t.toString());
+//                        }
+//                    });
+//                    tx1.setVisibility(View.INVISIBLE);
+//                    tx2.setVisibility(View.INVISIBLE);
+//                    tx3.setVisibility(View.VISIBLE);
+//                    tx4.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -187,35 +207,153 @@ public class ProfileActivity extends AppCompatActivity {
         button_change_age.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Objects.equals(editTextCountry.getText().toString(), "")) {
+                if (Objects.equals(editTextAge.getText().toString(), "")) {
                     Toast.makeText(ProfileActivity.this, "Please enter new user age", Toast.LENGTH_SHORT).show();
                 } else {
-                    Users user = new Users();
-                    user.setUser_name(editTextAge.getText().toString());
-                    user.setUser_email(json_user_email);
 
-                    Call<Users> call = api.updateage(user.getUser_name(),
-                            user.getUser_email()
-                    );
+                    changeAge(json_user_email,editTextAge.getText().toString());
+//                    Users user = new Users();
+//                    user.setUser_name(editTextAge.getText().toString());
+//                    user.setUser_email(json_user_email);
+//
+//                    Call<Users> call = api.updateage(user.getUser_name(),
+//                            user.getUser_email()
+//                    );
+//
+//                    call.enqueue(new Callback<Users>() {
+//                        @Override
+//                        public void onResponse(Call<Users> call, Response<Users> response) {
+//                            if (response.isSuccessful()) {
+//                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<Users> call, Throwable t) {
+//                            Log.d("onFailure", t.toString());
+//                        }
+//                    });
+//                    tx1.setVisibility(View.INVISIBLE);
+//                    tx2.setVisibility(View.INVISIBLE);
+//                    tx3.setVisibility(View.INVISIBLE);
+//                    tx4.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
 
-                    call.enqueue(new Callback<Users>() {
-                        @Override
-                        public void onResponse(Call<Users> call, Response<Users> response) {
-                            if (response.isSuccessful()) {
-                                Toast.makeText(ProfileActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+    private void changeName(String userEmail, String userName) {
+        if (userEmail == null || userName == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-                        @Override
-                        public void onFailure(Call<Users> call, Throwable t) {
-                            Log.d("onFailure", t.toString());
-                        }
-                    });
+        ProfileChangeNameRequest request = new ProfileChangeNameRequest(userName, userEmail);
+        api.changeName(request).enqueue(new Callback<ProfileChangeNameResponse>() {
+            @Override
+            public void onResponse(Call<ProfileChangeNameResponse> call, Response<ProfileChangeNameResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+
+                    tx1.setVisibility(View.VISIBLE);
+                    tx2.setVisibility(View.INVISIBLE);
+                    tx3.setVisibility(View.INVISIBLE);
+                    tx4.setVisibility(View.INVISIBLE);
+                } else {
+                    //error
+                    Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileChangeNameResponse> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void changePassword(String userEmail, String userName) {
+        if (userEmail == null || userName == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        ProfileChangePasswordRequest request = new ProfileChangePasswordRequest(userName, userEmail);
+        api.changePassword(request).enqueue(new Callback<ProfileChangePasswordResponse>() {
+            @Override
+            public void onResponse(Call<ProfileChangePasswordResponse> call, Response<ProfileChangePasswordResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+
+                    tx1.setVisibility(View.INVISIBLE);
+                    tx2.setVisibility(View.VISIBLE);
+                    tx3.setVisibility(View.INVISIBLE);
+                    tx4.setVisibility(View.INVISIBLE);
+                } else {
+                    //error
+                    Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileChangePasswordResponse> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void changeCountry(String userEmail, String userName) {
+        if (userEmail == null || userName == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        ProfileChangeCountryRequest request = new ProfileChangeCountryRequest(userName, userEmail);
+        api.changeCountry(request).enqueue(new Callback<ProfileChangeCountryResponse>() {
+            @Override
+            public void onResponse(Call<ProfileChangeCountryResponse> call, Response<ProfileChangeCountryResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+
+                    tx1.setVisibility(View.INVISIBLE);
+                    tx2.setVisibility(View.INVISIBLE);
+                    tx3.setVisibility(View.VISIBLE);
+                    tx4.setVisibility(View.INVISIBLE);
+                } else {
+                    //error
+                    Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileChangeCountryResponse> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void changeAge(String userEmail, String userName) {
+        if (userEmail == null || userName == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        ProfileChangeAgeRequest request = new ProfileChangeAgeRequest(userName, userEmail);
+        api.changeAge(request).enqueue(new Callback<ProfileChangeAgeResponse>() {
+            @Override
+            public void onResponse(Call<ProfileChangeAgeResponse> call, Response<ProfileChangeAgeResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+
                     tx1.setVisibility(View.INVISIBLE);
                     tx2.setVisibility(View.INVISIBLE);
                     tx3.setVisibility(View.INVISIBLE);
                     tx4.setVisibility(View.VISIBLE);
+                } else {
+                    //error
+                    Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
                 }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileChangeAgeResponse> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Login failed!", Toast.LENGTH_LONG).show();
             }
         });
     }

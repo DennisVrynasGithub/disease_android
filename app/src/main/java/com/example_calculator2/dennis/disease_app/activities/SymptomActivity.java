@@ -6,14 +6,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example_calculator2.dennis.disease_app.listView.DisplayListView;
 import com.example_calculator2.dennis.disease_app.listView.DisplayListView1;
 import com.example_calculator2.dennis.disease_app.R;
+import com.example_calculator2.dennis.disease_app.service.Api;
+import com.example_calculator2.dennis.disease_app.utils.G;
+import com.google.gson.JsonArray;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,13 +32,21 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SymptomActivity extends AppCompatActivity {
 
     protected TextView tx1, tx2;
     protected EditText editTextSymptom;
     protected Button buttonSymptom, buton_back;
-    private String Json, json_user_id,json_user_email,json_user_password;
+    private String Json, json_user_id,json_user_email,json_user_password, jsonString;
     String [] str;
+
+    private Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +62,12 @@ public class SymptomActivity extends AppCompatActivity {
         buttonSymptom = findViewById(R.id.btn_symptom);
         buton_back = findViewById(R.id.btn_symptom_back);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
+
         buttonSymptom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,61 +78,20 @@ public class SymptomActivity extends AppCompatActivity {
                     Integer i = str.length;
 
                     if (i==1){
-                        new BackgroundWorker().execute(str[0]);
-                        Toast.makeText(SymptomActivity.this, "Please wait....loading", Toast.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                                intent.putExtra("Json_data", Json);
-                                startActivity(intent);
-                            }
-                        }, 9000);
+                          getSymptom(str[0]);
                     }
                     else if (i==2){
-                        new BackgroundWorker2().execute(str[0],str[1]);
-                        Toast.makeText(SymptomActivity.this, "Please wait....loading", Toast.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                                intent.putExtra("Json_data", Json);
-                                startActivity(intent);
-                            }
-                        }, 9000);}
+                        getSymptomTwo(str[0], str[1]);
+ }
                     else if (i==3){
-                        new BackgroundWorker3().execute(str[0],str[1],str[2]);
-                        Toast.makeText(SymptomActivity.this, "Please wait....loading", Toast.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                                intent.putExtra("Json_data", Json);
-                                startActivity(intent);
-                            }
-                        }, 9000);}
+                        getSymptomThree(str[0], str[1], str[2]);
+ }
                     else if (i==4){
-                        new BackgroundWorker4().execute(str[0],str[1],str[2],str[3]);
-                        Toast.makeText(SymptomActivity.this, "Please wait....loading", Toast.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                                intent.putExtra("Json_data", Json);
-                                startActivity(intent);
-                            }
-                        }, 9000);}
+                        getSymptomFour(str[0], str[1], str[2], str[3]);
+                    }
                     else if (i==5){
-                        new BackgroundWorker5().execute(str[0],str[1],str[2],str[3],str[4]);
-                        Toast.makeText(SymptomActivity.this, "Please wait....loading", Toast.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                                intent.putExtra("Json_data", Json);
-                                startActivity(intent);
-                            }
-                        }, 9000);}
+                        getSymptomFive(str[0], str[1], str[2], str[3],str[4]);
+                    }
                         else{
                         Toast.makeText(SymptomActivity.this, "You have to fill less symptoms", Toast.LENGTH_LONG).show();
                     }
@@ -135,285 +113,159 @@ public class SymptomActivity extends AppCompatActivity {
         });
     }
 
-    private class BackgroundWorker extends AsyncTask<String, Void, String> {
-        private AlertDialog alertDialog;
-        private String result;
-
-        @Override
-        protected void onPreExecute() {
-            alertDialog = new AlertDialog.Builder(SymptomActivity.this).create();
-            alertDialog.setTitle("DiseaseActivity process");
+    private void getSymptom(String symptomName) {
+        if (symptomName == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String login_url = "http://83.212.101.67:80/get_one_symptom.php";
-            try {
-                String word = params[0];
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("word", "UTF-8") + "=" + URLEncoder.encode(word, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Call<JsonArray> jsonCall = api.getSymptom(symptomName);
+        jsonCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                jsonString = response.body().toString();
+                Log.i("onResponse", jsonString);
+                Toast.makeText(SymptomActivity.this, "Loading.......Please wait", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
+                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("json_user_id", json_user_id);
+                        startActivity(intent);
+                    }
+                }, 2000);
+
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Json = result;
-        }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("onFailure", t.toString());
+            }
+        });
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
     }
 
-    private class BackgroundWorker2 extends AsyncTask<String, Void, String> {
-        private String result;
-
-        @Override
-        protected void onPreExecute() {
+    private void getSymptomTwo(String symptomOne, String symptomTwo) {
+        if (symptomOne == null || symptomTwo == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String login_url = "http://83.212.101.67:80/get_two_symptom.php";
-            try {
-                String word = params[0];
-                String word1 = params[1];
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("word", "UTF-8") + "=" + URLEncoder.encode(word, "UTF-8") + "&" + URLEncoder.encode("word1", "UTF-8") + "=" + URLEncoder.encode(word1, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Call<JsonArray> jsonCall = api.getSymptomTwo(symptomOne,symptomTwo);
+        jsonCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                jsonString = response.body().toString();
+                Log.i("onResponse", jsonString);
+                Toast.makeText(SymptomActivity.this, "Loading.......Please wait", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
+                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        startActivity(intent);
+                    }
+                }, 2000);
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Json = result;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("onFailure", t.toString());
+            }
+        });
     }
 
-    private class BackgroundWorker3 extends AsyncTask<String, Void, String> {
-        private AlertDialog alertDialog;
-        private String result;
-
-        @Override
-        protected void onPreExecute() {
-            alertDialog = new AlertDialog.Builder(SymptomActivity.this).create();
-            alertDialog.setTitle("DiseaseActivity process");
+    private void getSymptomThree(String symptomOne, String symptomTwo, String symptomThree) {
+        if (symptomOne == null || symptomTwo == null || symptomThree == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String login_url = "http://83.212.101.67:80/get_three_symptom.php";
-            try {
-                String word = params[0];
-                String word2 = params[1];
-                String word3 = params[2];
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("word", "UTF-8") + "=" + URLEncoder.encode(word, "UTF-8") + "&" + URLEncoder.encode("word2", "UTF-8") + "=" + URLEncoder.encode(word2, "UTF-8") + "&" + URLEncoder.encode("word3", "UTF-8") + "=" + URLEncoder.encode(word3, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Call<JsonArray> jsonCall = api.getSymptomThree(symptomOne,symptomTwo,symptomThree);
+        jsonCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                jsonString = response.body().toString();
+                Log.i("onResponse", jsonString);
+                Toast.makeText(SymptomActivity.this, "Loading.......Please wait", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
+                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        startActivity(intent);
+                    }
+                }, 2000);
+
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Json = result;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("onFailure", t.toString());
+            }
+        });
     }
 
-    private class BackgroundWorker4 extends AsyncTask<String, Void, String> {
-        private AlertDialog alertDialog;
-        private String result;
-
-        @Override
-        protected void onPreExecute() {
-            alertDialog = new AlertDialog.Builder(SymptomActivity.this).create();
-            alertDialog.setTitle("DiseaseActivity process");
+    private void getSymptomFour(String symptomOne, String symptomTwo, String symptomThree, String symptomFour) {
+        if (symptomOne == null || symptomTwo == null || symptomThree == null || symptomFour == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String login_url = "http://83.212.101.67:80/get_four_symptom.php";
-            try {
-                String word = params[0];
-                String word2 = params[1];
-                String word3 = params[2];
-                String word4 = params[3];
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("word", "UTF-8") + "=" + URLEncoder.encode(word, "UTF-8") + "&" + URLEncoder.encode("word2", "UTF-8") + "=" + URLEncoder.encode(word2, "UTF-8") + "&" + URLEncoder.encode("word3", "UTF-8") + "=" + URLEncoder.encode(word3, "UTF-8") + "&" + URLEncoder.encode("word4", "UTF-8") + "=" + URLEncoder.encode(word4, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Call<JsonArray> jsonCall = api.getSymptomFour(symptomOne,symptomTwo,symptomThree,symptomFour);
+        jsonCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                jsonString = response.body().toString();
+                Log.i("onResponse", jsonString);
+                Toast.makeText(SymptomActivity.this, "Loading.......Please wait", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
+                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        startActivity(intent);
+                    }
+                }, 2000);
+
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Json = result;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("onFailure", t.toString());
+            }
+        });
     }
 
-    private class BackgroundWorker5 extends AsyncTask<String, Void, String> {
-        private AlertDialog alertDialog;
-        private String result;
-
-        @Override
-        protected void onPreExecute() {
-            alertDialog = new AlertDialog.Builder(SymptomActivity.this).create();
-            alertDialog.setTitle("DiseaseActivity process");
+    private void getSymptomFive(String symptomOne, String symptomTwo, String symptomThree, String symptomFour, String symptomFive) {
+        if (symptomOne == null || symptomTwo == null || symptomThree == null || symptomFour == null || symptomFive == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
         }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String login_url = "http://83.212.101.67:80/get_five_symptom.php";
-            try {
-                String word = params[0];
-                String word2 = params[1];
-                String word3 = params[2];
-                String word4 = params[3];
-                String word5 = params[4];
-                URL url = new URL(login_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("word", "UTF-8") + "=" + URLEncoder.encode(word, "UTF-8") + "&" + URLEncoder.encode("word2", "UTF-8") + "=" + URLEncoder.encode(word2, "UTF-8") + "&" + URLEncoder.encode("word3", "UTF-8") + "=" + URLEncoder.encode(word3, "UTF-8") + "&" + URLEncoder.encode("word4", "UTF-8") + "=" + URLEncoder.encode(word4, "UTF-8") + "&" + URLEncoder.encode("word5", "UTF-8") + "=" + URLEncoder.encode(word5, "UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return result;
-            } catch (IOException e) {
-                e.printStackTrace();
+        Call<JsonArray> jsonCall = api.getSymptomFive(symptomOne,symptomTwo,symptomThree,symptomFour,symptomFive);
+        jsonCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                jsonString = response.body().toString();
+                Log.i("onResponse", jsonString);
+                Toast.makeText(SymptomActivity.this, "Loading.......Please wait", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
+                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        startActivity(intent);
+                    }
+                }, 2000);
+
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            Json = result;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.e("onFailure", t.toString());
+            }
+        });
     }
 }

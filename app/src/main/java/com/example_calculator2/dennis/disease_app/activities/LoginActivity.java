@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-//                    intent.putExtra("json_user_id", json_user_id);
+                    intent.putExtra("json_user_id", response.body().getUser_id());
                     intent.putExtra("json_user_email", editTextEmail.getText().toString());
                     intent.putExtra("json_user_password", editTextPassword.getText().toString());
                     startActivity(intent);

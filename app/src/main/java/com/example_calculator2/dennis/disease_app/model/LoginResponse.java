@@ -9,6 +9,9 @@ public class LoginResponse {
     @SerializedName("user_email")
     private String user_email;
 
+    @SerializedName("user_id")
+    private String user_id;
+
     public boolean isSuccess() {
         return success;
     }
@@ -31,5 +34,13 @@ public class LoginResponse {
 
     public void setUser_email(String user_email) {
         this.user_email = user_email;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

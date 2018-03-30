@@ -10,10 +10,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example_calculator2.dennis.disease_app.R;
 import com.example_calculator2.dennis.disease_app.model.Quest4;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire1Request;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire1Response;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire4Request;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire4Response;
 import com.example_calculator2.dennis.disease_app.service.Api;
+import com.example_calculator2.dennis.disease_app.utils.G;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,16 +31,21 @@ public class Questionnaire4Activity extends AppCompatActivity {
 
     RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5, radioGroup6;
     Button btn,btn_n1,btn_p2,btn_n2,btn_p3,btn_n3,btn_p4,btn_p5,btn_n4,btn_p6,btn_n5,btn_dp,btn_dn,btn_back;
-    String json_user_id,base_url, radioButton_string,radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5,  radioButton_string6;
+    String json_user_id, json_user_password, json_user_email,base_url, radioButton_string,radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5,  radioButton_string6;
     TextView tx1,tx2,tx3,tx4,tx5,tx6,tx7,tx8,tx9,TX1,TX2,TX3,TX4,TX5,TX6;
-    Integer in1, in2, in3, in4;
+    Integer in1, in2, in3, in4, sum;
     LinearLayout ln1,ln2,ln3,ln4,ln5,ln6;
     EditText et;
 
+    private Api api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire4);
+
+        json_user_id = getIntent().getExtras().getString("json_user_id");
+        json_user_email = getIntent().getExtras().getString("json_user_email");
+        json_user_password = getIntent().getExtras().getString("json_user_password");
 
         radioGroup1 = findViewById(R.id.radiogroup41);
         radioGroup2 = findViewById(R.id.radiogroup42);
@@ -83,8 +94,11 @@ public class Questionnaire4Activity extends AppCompatActivity {
         btn_dp = findViewById(R.id.q4_dp);
         btn_dn = findViewById(R.id.q4_dn);
 
-        base_url = "http://83.212.101.67:80/";
-        json_user_id = getIntent().getExtras().getString("json_user_id");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
 
 
         tx1.setVisibility(View.INVISIBLE);
@@ -303,25 +317,25 @@ public class Questionnaire4Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
-                    case R.id.radioButton195:
+                    case R.id.radioButton196:
                         radioButton_string6 = "10";
                         break;
-                    case R.id.radioButton196:
+                    case R.id.radioButton197:
                         radioButton_string6 = "9";
                         break;
-                    case R.id.radioButton197:
+                    case R.id.radioButton198:
                         radioButton_string6 = "8";
                         break;
-                    case R.id.radioButton198:
+                    case R.id.radioButton199:
                         radioButton_string6 = "7";
                         break;
-                    case R.id.radioButton199:
+                    case R.id.radioButton200:
                         radioButton_string6 = "6";
                         break;
-                    case R.id.radioButton200:
+                    case R.id.radioButton201:
                         radioButton_string6 = "5";
                         break;
-                    case R.id.radioButton201:
+                    case R.id.radioButton202:
                         radioButton_string6 = "4";
                         break;
                     case R.id.radioButton203:
@@ -341,25 +355,25 @@ public class Questionnaire4Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
-                    case R.id.radioButton185:
+                    case R.id.radioButton186:
                         radioButton_string5 = "10";
                         break;
-                    case R.id.radioButton186:
+                    case R.id.radioButton187:
                         radioButton_string5 = "9";
                         break;
-                    case R.id.radioButton187:
+                    case R.id.radioButton188:
                         radioButton_string5 = "8";
                         break;
-                    case R.id.radioButton188:
+                    case R.id.radioButton189:
                         radioButton_string5 = "7";
                         break;
-                    case R.id.radioButton189:
+                    case R.id.radioButton190:
                         radioButton_string5 = "6";
                         break;
-                    case R.id.radioButton190:
+                    case R.id.radioButton191:
                         radioButton_string5 = "5";
                         break;
-                    case R.id.radioButton191:
+                    case R.id.radioButton192:
                         radioButton_string5 = "4";
                         break;
                     case R.id.radioButton193:
@@ -379,25 +393,25 @@ public class Questionnaire4Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
-                    case R.id.radioButton175:
+                    case R.id.radioButton176:
                         radioButton_string4 = "10";
                         break;
-                    case R.id.radioButton176:
+                    case R.id.radioButton177:
                         radioButton_string4 = "9";
                         break;
-                    case R.id.radioButton177:
+                    case R.id.radioButton178:
                         radioButton_string4 = "8";
                         break;
-                    case R.id.radioButton178:
+                    case R.id.radioButton179:
                         radioButton_string4 = "7";
                         break;
-                    case R.id.radioButton179:
+                    case R.id.radioButton180:
                         radioButton_string4 = "6";
                         break;
-                    case R.id.radioButton180:
+                    case R.id.radioButton181:
                         radioButton_string4 = "5";
                         break;
-                    case R.id.radioButton181:
+                    case R.id.radioButton182:
                         radioButton_string4 = "4";
                         break;
                     case R.id.radioButton183:
@@ -417,25 +431,25 @@ public class Questionnaire4Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
-                    case R.id.radioButton165:
+                    case R.id.radioButton166:
                         radioButton_string3 = "10";
                         break;
-                    case R.id.radioButton166:
+                    case R.id.radioButton167:
                         radioButton_string3 = "9";
                         break;
-                    case R.id.radioButton167:
+                    case R.id.radioButton168:
                         radioButton_string3 = "8";
                         break;
-                    case R.id.radioButton168:
+                    case R.id.radioButton169:
                         radioButton_string3 = "7";
                         break;
-                    case R.id.radioButton169:
+                    case R.id.radioButton170:
                         radioButton_string3 = "6";
                         break;
-                    case R.id.radioButton170:
+                    case R.id.radioButton171:
                         radioButton_string3 = "5";
                         break;
-                    case R.id.radioButton171:
+                    case R.id.radioButton172:
                         radioButton_string3 = "4";
                         break;
                     case R.id.radioButton173:
@@ -455,16 +469,16 @@ public class Questionnaire4Activity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
-                    case R.id.radioButton158:
+                    case R.id.radioButton159:
                         radioButton_string2 = "70-80";
                         break;
-                    case R.id.radioButton159:
+                    case R.id.radioButton160:
                         radioButton_string2 = "60-70";
                         break;
-                    case R.id.radioButton160:
+                    case R.id.radioButton161:
                         radioButton_string2 = "50-60";
                         break;
-                    case R.id.radioButton161:
+                    case R.id.radioButton162:
                         radioButton_string2 = "40-50";
                         break;
                     case R.id.radioButton163:
@@ -485,19 +499,19 @@ public class Questionnaire4Activity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
                     case R.id.radioButton158:
-                        radioButton_string = "5";
+                        radioButton_string = "Malignant hypertension";
                         break;
                     case R.id.radioButton157:
-                        radioButton_string = "4";
+                        radioButton_string = "Moderate hypertension";
                         break;
                     case R.id.radioButton156:
-                        radioButton_string = "3";
+                        radioButton_string = "Mild hypertension";
                         break;
                     case R.id.radioButton155:
-                        radioButton_string = "2";
+                        radioButton_string = "Boundary increased";
                         break;
                     case R.id.radioButton154:
-                        radioButton_string = "1";
+                        radioButton_string = "Ideal";
                         break;
                 }
             }
@@ -506,83 +520,118 @@ public class Questionnaire4Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                in1 = Integer.parseInt(radioButton_string6);
-                in2 = Integer.parseInt(radioButton_string3);
-                in3 = Integer.parseInt(radioButton_string4);
-                in4 = Integer.parseInt(radioButton_string5);
-                Integer sum = in1 + in2 + in3 + in4;
-                if (sum >= 0 && sum <= 15) {
-                    tx1.setVisibility(View.VISIBLE);
-                    tx2.setVisibility(View.VISIBLE);
-                    tx3.setVisibility(View.VISIBLE);
-                    tx4.setVisibility(View.INVISIBLE);
-                    tx5.setVisibility(View.INVISIBLE);
-                    tx6.setVisibility(View.INVISIBLE);
-                    tx7.setVisibility(View.INVISIBLE);
-                    tx8.setVisibility(View.INVISIBLE);
-                    tx9.setVisibility(View.INVISIBLE);
-                }else if(sum >= 16 && sum <= 30){
-                    tx1.setVisibility(View.INVISIBLE);
-                    tx2.setVisibility(View.INVISIBLE);
-                    tx3.setVisibility(View.INVISIBLE);
-                    tx4.setVisibility(View.VISIBLE);
-                    tx5.setVisibility(View.VISIBLE);
-                    tx6.setVisibility(View.VISIBLE);
-                    tx7.setVisibility(View.INVISIBLE);
-                    tx8.setVisibility(View.INVISIBLE);
-                    tx9.setVisibility(View.INVISIBLE);
-                }else if (sum >= 31){
-                    tx1.setVisibility(View.INVISIBLE);
-                    tx2.setVisibility(View.INVISIBLE);
-                    tx3.setVisibility(View.INVISIBLE);
-                    tx4.setVisibility(View.INVISIBLE);
-                    tx5.setVisibility(View.INVISIBLE);
-                    tx6.setVisibility(View.INVISIBLE);
-                    tx7.setVisibility(View.VISIBLE);
-                    tx8.setVisibility(View.VISIBLE);
-                    tx9.setVisibility(View.VISIBLE);
+
+                if (radioButton_string == null || radioButton_string6 == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null || radioButton_string5 == null) {
+                    Toast.makeText(Questionnaire4Activity.this,"Invalid input!!!!",Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    in1 = Integer.parseInt(radioButton_string6);
+                    in2 = Integer.parseInt(radioButton_string5);
+                    in3 = Integer.parseInt(radioButton_string3);
+                    in4 = Integer.parseInt(radioButton_string4);
+                    sum = in1 + in2 + in3 + in4;
+                    if (sum >= 0 && sum <= 15) {
+                        tx1.setVisibility(View.VISIBLE);
+                        tx2.setVisibility(View.VISIBLE);
+                        tx3.setVisibility(View.VISIBLE);
+                        tx4.setVisibility(View.INVISIBLE);
+                        tx5.setVisibility(View.INVISIBLE);
+                        tx6.setVisibility(View.INVISIBLE);
+                        tx7.setVisibility(View.INVISIBLE);
+                        tx8.setVisibility(View.INVISIBLE);
+                        tx9.setVisibility(View.INVISIBLE);
+                    } else if (sum >= 16 && sum <= 30) {
+                        tx1.setVisibility(View.INVISIBLE);
+                        tx2.setVisibility(View.INVISIBLE);
+                        tx3.setVisibility(View.INVISIBLE);
+                        tx4.setVisibility(View.VISIBLE);
+                        tx5.setVisibility(View.VISIBLE);
+                        tx6.setVisibility(View.VISIBLE);
+                        tx7.setVisibility(View.INVISIBLE);
+                        tx8.setVisibility(View.INVISIBLE);
+                        tx9.setVisibility(View.INVISIBLE);
+                    } else if (sum >= 31) {
+                        tx1.setVisibility(View.INVISIBLE);
+                        tx2.setVisibility(View.INVISIBLE);
+                        tx3.setVisibility(View.INVISIBLE);
+                        tx4.setVisibility(View.INVISIBLE);
+                        tx5.setVisibility(View.INVISIBLE);
+                        tx6.setVisibility(View.INVISIBLE);
+                        tx7.setVisibility(View.VISIBLE);
+                        tx8.setVisibility(View.VISIBLE);
+                        tx9.setVisibility(View.VISIBLE);
+                    }
+
+
+                    questionnaireFour(radioButton_string,
+                            radioButton_string2,
+                            radioButton_string3,
+                            radioButton_string4,
+                            radioButton_string5,
+                            radioButton_string6,
+                            sum,
+                            json_user_id);
                 }
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(base_url)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+//                Quest4 quest4 = new Quest4();
+//                quest4.setAge(radioButton_string2);
+//                quest4.setIllnes(radioButton_string3);
+//                quest4.setCaused_other(radioButton_string4);
+//                quest4.setTime(radioButton_string6);
+//                quest4.setTreatment(radioButton_string5);
+//                quest4.setId_2(json_user_id);
+//                quest4.setGender(radioButton_string);
+//                quest4.setDate(et.getText().toString());
+//                quest4.setScore(sum);
+//
+//                Call<Quest4> call = service.insertQuset4(quest4.getGender(),
+//                        quest4.getAge(),
+//                        quest4.getIllnes(),
+//                        quest4.getCaused_other(),
+//                        quest4.getTreatment(),
+//                        quest4.getTime(),
+//                        quest4.getId_2(),
+//                        quest4.getDate(),
+//                        quest4.getScore()
+//                );
+//
+//                call.enqueue(new Callback<Quest4>() {
+//                    @Override
+//                    public void onResponse(Call<Quest4> call, Response<Quest4> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Quest4> call, Throwable t) {
+//                        Log.d("onFailure", t.toString());
+//
+//                    }
+//                });
+            }
+        });
+    }
 
-                Api service = retrofit.create(Api.class);
-                Quest4 quest4 = new Quest4();
-                quest4.setAge(radioButton_string2);
-                quest4.setIllnes(radioButton_string3);
-                quest4.setCaused_other(radioButton_string4);
-                quest4.setTime(radioButton_string6);
-                quest4.setTreatment(radioButton_string5);
-                quest4.setId_2(json_user_id);
-                quest4.setGender(radioButton_string);
-                quest4.setDate(et.getText().toString());
-                quest4.setScore(sum);
+    private void questionnaireFour(String radioButton_string1, String radioButton_string2, String radioButton_string3, String radioButton_string4, String radioButton_string5, String radioButton_string6, Integer sum, String json_user_id) {
+        if (radioButton_string == null || radioButton_string5 == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null || sum == null) {
+            return;
+        }
 
-                Call<Quest4> call = service.insertQuset4(quest4.getGender(),
-                        quest4.getAge(),
-                        quest4.getIllnes(),
-                        quest4.getCaused_other(),
-                        quest4.getTreatment(),
-                        quest4.getTime(),
-                        quest4.getId_2(),
-                        quest4.getDate(),
-                        quest4.getScore()
-                );
+        Questionnaire4Request request = new Questionnaire4Request(radioButton_string1, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5, radioButton_string6, sum, json_user_id);
+        api.questionnaireFour(request).enqueue(new Callback<Questionnaire4Response>() {
+            @Override
+            public void onResponse(Call<Questionnaire4Response> call, Response<Questionnaire4Response> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    Toast.makeText(Questionnaire4Activity.this, "Send complete", Toast.LENGTH_LONG).show();
+                } else {
+                    //error
+                    Toast.makeText(Questionnaire4Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                }
+            }
 
-                call.enqueue(new Callback<Quest4>() {
-                    @Override
-                    public void onResponse(Call<Quest4> call, Response<Quest4> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Quest4> call, Throwable t) {
-                        Log.d("onFailure", t.toString());
-
-                    }
-                });
+            @Override
+            public void onFailure(Call<Questionnaire4Response> call, Throwable t) {
+                Toast.makeText(Questionnaire4Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
             }
         });
     }

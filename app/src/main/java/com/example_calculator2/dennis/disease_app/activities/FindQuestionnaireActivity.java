@@ -35,6 +35,8 @@ public class FindQuestionnaireActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FindQuestionnaireActivity.this, Questionnaire1Activity.class);
                 intent.putExtra("json_user_id", json_user_id);
+                intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
             }
         });
@@ -44,6 +46,8 @@ public class FindQuestionnaireActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FindQuestionnaireActivity.this, Questionnaire2Activity.class);
                 intent.putExtra("json_user_id", json_user_id);
+                intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
             }
         });
@@ -53,6 +57,8 @@ public class FindQuestionnaireActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FindQuestionnaireActivity.this, Questionnaire3Activity.class);
                 intent.putExtra("json_user_id", json_user_id);
+                intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
             }
         });
@@ -62,6 +68,8 @@ public class FindQuestionnaireActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FindQuestionnaireActivity.this, Questionnaire4Activity.class);
                 intent.putExtra("json_user_id", json_user_id);
+                intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
             }
         });
@@ -71,6 +79,8 @@ public class FindQuestionnaireActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FindQuestionnaireActivity.this, Questionnaire5Activity.class);
                 intent.putExtra("json_user_id", json_user_id);
+                intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
             }
         });
@@ -80,6 +90,8 @@ public class FindQuestionnaireActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FindQuestionnaireActivity.this, Questionnaire6Activity.class);
                 intent.putExtra("json_user_id", json_user_id);
+                intent.putExtra("json_user_email", json_user_email);
+                intent.putExtra("json_user_password", json_user_password);
                 startActivity(intent);
             }
         });

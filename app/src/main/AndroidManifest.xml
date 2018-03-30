@@ -40,11 +40,9 @@
         <activity android:name=".activities.FindQuestionnaireActivity" />
         <activity
             android:name=".activities.Questionnaire1Activity"
-
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.Questionnaire2Activity"
-
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.Questionnaire3Activity"
@@ -73,7 +71,9 @@
         <activity android:name=".listView.DisplayListViewQ3" />
         <activity android:name=".listView.DisplayListVIewQ4" />
         <activity android:name=".listView.DisplayListViewQ5" />
-        <activity android:name=".listView.DisplayListViewQ6"></activity>
+        <activity android:name=".listView.DisplayListViewQ6" />
+        <activity android:name=".activities.HistoryActivity" />
+        <activity android:name=".listView.DisplayListHistory"></activity>
     </application>
 
 </manifest>

@@ -10,10 +10,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example_calculator2.dennis.disease_app.R;
 import com.example_calculator2.dennis.disease_app.model.Quest6;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire1Request;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire1Response;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire6Request;
+import com.example_calculator2.dennis.disease_app.model.Questionnaire6Response;
 import com.example_calculator2.dennis.disease_app.service.Api;
+import com.example_calculator2.dennis.disease_app.utils.G;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,16 +31,21 @@ public class Questionnaire6Activity extends AppCompatActivity {
 
     RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5;
     Button btn,btn_n1,btn_p2,btn_n2,btn_p3,btn_n3,btn_p4,btn_p5,btn_n4,btn_dn,btn_dp,btn_back ;
-    String json_user_id,base_url, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5;
+    String json_user_id, json_user_password, json_user_email, base_url, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5;
     TextView tx1,tx2,tx3,tx4,tx5,tx6,tx7,tx8,tx9,TX1,TX2,TX3,TX4,TX5;
     Integer in1, in2, in3, in4, in5;
     LinearLayout ln1,ln2,ln3,ln4,ln5;
     EditText et;
 
+    private Api api;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire6);
+
+        json_user_id = getIntent().getExtras().getString("json_user_id");
+        json_user_email = getIntent().getExtras().getString("json_user_email");
+        json_user_password = getIntent().getExtras().getString("json_user_password");
 
         radioGroup1 = findViewById(R.id.radiogroup61);
         radioGroup2 = findViewById(R.id.radiogroup62);
@@ -80,8 +91,11 @@ public class Questionnaire6Activity extends AppCompatActivity {
         btn_dp = findViewById(R.id.q6_dp);
         btn_dn = findViewById(R.id.q6_dn);
 
-        base_url = "http://83.212.101.67:80/";
-        json_user_id = getIntent().getExtras().getString("json_user_id");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(G.HOST_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(Api.class);
 
         tx1.setVisibility(View.INVISIBLE);
         tx2.setVisibility(View.INVISIBLE);
@@ -455,6 +469,11 @@ public class Questionnaire6Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (radioButton_string == null || radioButton_string5 == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null) {
+                    Toast.makeText(Questionnaire6Activity.this,"Invalid input!!!!",Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
                 in1 = Integer.parseInt(radioButton_string2);
                 in2 = Integer.parseInt(radioButton_string3);
                 in3 = Integer.parseInt(radioButton_string4);
@@ -465,52 +484,82 @@ public class Questionnaire6Activity extends AppCompatActivity {
                     tx1.setVisibility(View.VISIBLE);
                     tx2.setVisibility(View.VISIBLE);
                     tx3.setVisibility(View.VISIBLE);
-                }else if(sum >= 21 && sum <= 40){
+                } else if (sum >= 21 && sum <= 40) {
                     tx4.setVisibility(View.VISIBLE);
                     tx5.setVisibility(View.VISIBLE);
                     tx6.setVisibility(View.VISIBLE);
-                }else if (sum >= 41){
+                } else if (sum >= 41) {
                     tx7.setVisibility(View.VISIBLE);
                     tx8.setVisibility(View.VISIBLE);
                     tx9.setVisibility(View.VISIBLE);
                 }
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(base_url)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
 
-                Api service = retrofit.create(Api.class);
-                Quest6 quest6 = new Quest6();
-                quest6.setAge(radioButton_string2);
-                quest6.setHeredity_history(radioButton_string3);
-                quest6.setIllnes_heredity(radioButton_string4);
-                quest6.setTreatment(radioButton_string5);
-                quest6.setId_2(json_user_id);
-                quest6.setGender(radioButton_string);
-                quest6.setDate(et.getText().toString());
-                quest6.setScore(sum);
 
-                Call<Quest6> call = service.insertQuset6 (quest6.getGender(),
-                        quest6.getAge(),
-                        quest6.getHeredity_history(),
-                        quest6.getIllnes_heredity(),
-                        quest6.getTreatment(),
-                        quest6.getId_2(),
-                        quest6.getDate(),
-                        quest6.getScore()
-                );
+                questionnaireSix(radioButton_string,
+                        radioButton_string5,
+                        radioButton_string4,
+                        radioButton_string3,
+                        radioButton_string2,
+                        sum,
+                        json_user_id);
+            }
 
-                call.enqueue(new Callback<Quest6>() {
-                    @Override
-                    public void onResponse(Call<Quest6> call, Response<Quest6> response) {
+//                Quest6 quest6 = new Quest6();
+//                quest6.setAge(radioButton_string2);
+//                quest6.setHeredity_history(radioButton_string3);
+//                quest6.setIllnes_heredity(radioButton_string4);
+//                quest6.setTreatment(radioButton_string5);
+//                quest6.setId_2(json_user_id);
+//                quest6.setGender(radioButton_string);
+//                quest6.setDate(et.getText().toString());
+//                quest6.setScore(sum);
+//
+//                Call<Quest6> call = service.insertQuset6 (quest6.getGender(),
+//                        quest6.getAge(),
+//                        quest6.getHeredity_history(),
+//                        quest6.getIllnes_heredity(),
+//                        quest6.getTreatment(),
+//                        quest6.getId_2(),
+//                        quest6.getDate(),
+//                        quest6.getScore()
+//                );
+//
+//                call.enqueue(new Callback<Quest6>() {
+//                    @Override
+//                    public void onResponse(Call<Quest6> call, Response<Quest6> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Quest6> call, Throwable t) {
+//                        Log.d("onFailure", t.toString());
+//                    }
+//                });
+            }
+        });
+    }
 
-                    }
+    private void questionnaireSix(String radioButton_string, String radioButton_string5, String radioButton_string4, String radioButton_string3, String radioButton_string2, Integer sum, String json_user_id) {
+        if (radioButton_string == null || radioButton_string5 == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null || sum == null) {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-                    @Override
-                    public void onFailure(Call<Quest6> call, Throwable t) {
-                        Log.d("onFailure", t.toString());
-                    }
-                });
+        Questionnaire6Request request = new Questionnaire6Request(radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5, sum, json_user_id);
+        api.questionnaireSix(request).enqueue(new Callback<Questionnaire6Response>() {
+            @Override
+            public void onResponse(Call<Questionnaire6Response> call, Response<Questionnaire6Response> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    Toast.makeText(Questionnaire6Activity.this, "Send complete", Toast.LENGTH_LONG).show();
+                } else {
+                    //error
+                    Toast.makeText(Questionnaire6Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Questionnaire6Response> call, Throwable t) {
+                Toast.makeText(Questionnaire6Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
             }
         });
     }
