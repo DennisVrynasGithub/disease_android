@@ -12,7 +12,6 @@ import com.example_calculator2.dennis.disease_app.R;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    protected TextView tx1, tx2;
     protected Button button_dashboard_login, button_dashboard_register;
 
     @Override
@@ -21,9 +20,7 @@ public class DashboardActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_dashboard);
 
-        tx1 = findViewById(R.id.textView1);
-        tx2 = findViewById(R.id.textView2);
-        button_dashboard_login = findViewById(R.id.btn_login);
+        button_dashboard_login = findViewById(R.id.btn_dashboard_login);
         button_dashboard_register = findViewById(R.id.btn_register);
 
         button_dashboard_login.setOnClickListener(new View.OnClickListener() {

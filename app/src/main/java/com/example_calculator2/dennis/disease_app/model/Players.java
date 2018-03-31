@@ -6,7 +6,7 @@ package com.example_calculator2.dennis.disease_app.model;
 
 public class Players {
 
-    private String id,name,a2z,fact,description;
+    private String id, name, a2z, fact, description;
 
     public Players(String id, String name, String a2z, String fact, String description) {
         this.id = id;

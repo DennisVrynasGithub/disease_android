@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DisplayListView extends AppCompatActivity {
 
-    String Json_string, user_id,id,name,a2z,fact,description;
+    String Json_string, user_id, id, name, a2z, fact, description;
     JSONObject jsonObject;
     JSONArray jsonArray;
     PlayerAdapter playerAdapter;
@@ -75,8 +75,8 @@ public class DisplayListView extends AppCompatActivity {
             jsonObject = new JSONObject(Json_string);
             // Create array with name disease
             jsonArray = jsonObject.getJSONArray("disease");
-            int count =0 ;
-            while ( count < jsonArray.length()){
+            int count = 0;
+            while (count < jsonArray.length()) {
                 // Put id , name and a2z into array
                 JSONObject JO = jsonArray.getJSONObject(count);
                 id = JO.getString("id");
@@ -84,7 +84,7 @@ public class DisplayListView extends AppCompatActivity {
                 a2z = JO.getString("a2z");
                 fact = JO.getString("fact");
                 description = JO.getString("description");
-                Players players = new Players(id,a2z,name,fact, description);
+                Players players = new Players(id, a2z, name, fact, description);
                 playerAdapter.add(players);
                 count++;
             }
@@ -115,13 +115,13 @@ public class DisplayListView extends AppCompatActivity {
                     Toast.makeText(DisplayListView.this, "Add success!", Toast.LENGTH_LONG).show();
                 } else {
                     //error
-                    Toast.makeText(DisplayListView.this, "Login failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DisplayListView.this, "Add failed!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AddHistoryResponse> call, Throwable t) {
-                Toast.makeText(DisplayListView.this, "Login failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(DisplayListView.this, "Add failed!", Toast.LENGTH_LONG).show();
             }
         });
     }

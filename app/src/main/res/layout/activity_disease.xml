@@ -37,7 +37,7 @@
         app:srcCompat="@drawable/bla1" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editTextDiseaseEnterDisease"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
@@ -68,7 +68,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDiseaseEnterDisease" />
 
     <TextView
         android:id="@+id/textView70"

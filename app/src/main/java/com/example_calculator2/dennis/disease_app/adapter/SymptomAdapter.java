@@ -55,18 +55,18 @@ public class SymptomAdapter extends ArrayAdapter {
         View row;
         row = convertView;
         final PlayerHolder playerHolder;
-        if (row == null){
-            LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = layoutInflater.inflate(R.layout.activity_row_layout1,parent,false);
+        if (row == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = layoutInflater.inflate(R.layout.activity_row_layout1, parent, false);
             playerHolder = new PlayerHolder();
             playerHolder.column1 = row.findViewById(R.id.symptom_id);
             playerHolder.column2 = row.findViewById(R.id.symptom_a2z);
             playerHolder.column3 = row.findViewById(R.id.symptom_name);
             playerHolder.column4 = row.findViewById(R.id.symptom_fact);
-            playerHolder.column5 = row.findViewById(R.id.button2);
+            playerHolder.btnFurtherDetails = row.findViewById(R.id.btnDetails);
             row.setTag(playerHolder);
-        }else {
-            playerHolder = (PlayerHolder)row.getTag();
+        } else {
+            playerHolder = (PlayerHolder) row.getTag();
         }
         final Symptoms symptoms = (Symptoms) this.getItem(position);
         assert symptoms != null;
@@ -74,7 +74,7 @@ public class SymptomAdapter extends ArrayAdapter {
         playerHolder.column2.setText((symptoms.getA2z()));
         playerHolder.column3.setText((symptoms.getName()));
         playerHolder.column4.setText((symptoms.getFact()));
-        playerHolder.column5.setOnClickListener(new View.OnClickListener() {
+        playerHolder.btnFurtherDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(c.getApplicationContext(), ResultActivity.class);
@@ -87,9 +87,9 @@ public class SymptomAdapter extends ArrayAdapter {
         return row;
     }
 
-    private static class PlayerHolder{
-        TextView column1,column2,column3,column4;
-        Button column5;
+    private static class PlayerHolder {
+        TextView column1, column2, column3, column4;
+        Button btnFurtherDetails;
     }
 
 }

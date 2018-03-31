@@ -86,7 +86,7 @@ public interface Api {
     Call<JsonArray> getSymptom(@Query("symptom") String symptom);
 
     @GET("getSymptomsTwo")
-    Call<JsonArray> getSymptomTwo(@Query("a") String symptomOne,@Query("b") String symptomTwo);
+    Call<JsonArray> getSymptomTwo(@Query("a") String symptomOne, @Query("b") String symptomTwo);
 
     @GET("getSymptomsThree")
     Call<JsonArray> getSymptomThree(@Query("a") String symptomOne,

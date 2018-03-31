@@ -22,6 +22,7 @@ import java.util.List;
 public class PlayerAdapter extends ArrayAdapter {
 
     private List list = new ArrayList();
+
     public PlayerAdapter(Context context, int resource) {
         super(context, resource);
     }
@@ -49,9 +50,9 @@ public class PlayerAdapter extends ArrayAdapter {
         View row;
         row = convertView;
         PlayerHolder playerHolder;
-        if (row == null){
-            LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = layoutInflater.inflate(R.layout.activity_row_layout,parent,false);
+        if (row == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = layoutInflater.inflate(R.layout.activity_row_layout, parent, false);
             playerHolder = new PlayerHolder();
             playerHolder.column1 = row.findViewById(R.id.tx_disease_id);
             playerHolder.column2 = row.findViewById(R.id.tx_disease_a2z);
@@ -59,8 +60,8 @@ public class PlayerAdapter extends ArrayAdapter {
             playerHolder.column4 = row.findViewById(R.id.tx_disease_fact);
             playerHolder.column5 = row.findViewById(R.id.tx_disease_description);
             row.setTag(playerHolder);
-        }else {
-            playerHolder = (PlayerHolder)row.getTag();
+        } else {
+            playerHolder = (PlayerHolder) row.getTag();
         }
         Players players = (Players) this.getItem(position);
         assert players != null;
@@ -72,7 +73,7 @@ public class PlayerAdapter extends ArrayAdapter {
         return row;
     }
 
-    private static class PlayerHolder{
-        TextView column1,column2,column3,column4,column5;
+    private static class PlayerHolder {
+        TextView column1, column2, column3, column4, column5;
     }
 }

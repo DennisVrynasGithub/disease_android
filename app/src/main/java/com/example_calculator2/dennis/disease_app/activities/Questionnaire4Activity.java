@@ -30,14 +30,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Questionnaire4Activity extends AppCompatActivity {
 
     RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5, radioGroup6;
-    Button btn,btn_n1,btn_p2,btn_n2,btn_p3,btn_n3,btn_p4,btn_p5,btn_n4,btn_p6,btn_n5,btn_dp,btn_dn,btn_back;
-    String json_user_id, json_user_password, json_user_email,base_url, radioButton_string,radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5,  radioButton_string6;
-    TextView tx1,tx2,tx3,tx4,tx5,tx6,tx7,tx8,tx9,TX1,TX2,TX3,TX4,TX5,TX6;
+    Button btn, btn_n1, btn_p2, btn_n2, btn_p3, btn_n3, btn_p4, btn_p5, btn_n4, btn_p6, btn_n5, btn_dp, btn_dn, btn_back;
+    String json_user_id, json_user_password, json_user_email, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5, radioButton_string6;
+    TextView tx1, tx2, tx3, tx4, tx5, tx6, tx7, tx8, tx9, TX1, TX2, TX3, TX4, TX5, TX6;
     Integer in1, in2, in3, in4, sum;
-    LinearLayout ln1,ln2,ln3,ln4,ln5,ln6;
-    EditText et;
+    LinearLayout ln1, ln2, ln3, ln4, ln5, ln6;
 
     private Api api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +54,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup5 = findViewById(R.id.radiogroupr45);
         radioGroup6 = findViewById(R.id.radiogroup46);
 
-        et = findViewById(R.id.editText10);
         ln1 = findViewById(R.id.linearLayout12);
         ln2 = findViewById(R.id.linearLayout13);
         ln3 = findViewById(R.id.linearLayout14);
@@ -91,8 +90,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
         btn_p4 = findViewById(R.id.q4_p4);
         btn_p5 = findViewById(R.id.q4_p5);
         btn_p6 = findViewById(R.id.q4_p6);
-        btn_dp = findViewById(R.id.q4_dp);
-        btn_dn = findViewById(R.id.q4_dn);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(G.HOST_URL)
@@ -111,8 +108,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
         tx8.setVisibility(View.INVISIBLE);
         tx9.setVisibility(View.INVISIBLE);
 
-        et.setVisibility(View.INVISIBLE);
-
         ln2.setVisibility(View.INVISIBLE);
         ln3.setVisibility(View.INVISIBLE);
         ln4.setVisibility(View.INVISIBLE);
@@ -129,8 +124,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
         btn_p4.setVisibility(View.INVISIBLE);
         btn_p5.setVisibility(View.INVISIBLE);
         btn_p6.setVisibility(View.INVISIBLE);
-        btn_dn.setVisibility(View.INVISIBLE);
-        btn_dp.setVisibility(View.INVISIBLE);
 
         TX2.setVisibility(View.INVISIBLE);
         TX3.setVisibility(View.INVISIBLE);
@@ -197,18 +190,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
                 btn_p4.setVisibility(View.INVISIBLE);
                 btn_n4.setVisibility(View.INVISIBLE);
 
-                et.setVisibility(View.VISIBLE);
-                btn_dn.setVisibility(View.VISIBLE);
-                btn_dp.setVisibility(View.VISIBLE);
-            }
-        });
-        btn_dn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                et.setVisibility(View.INVISIBLE);
-                btn_dp.setVisibility(View.INVISIBLE);
-                btn_dn.setVisibility(View.INVISIBLE);
-
                 TX5.setVisibility(View.VISIBLE);
                 ln5.setVisibility(View.VISIBLE);
                 btn_n5.setVisibility(View.VISIBLE);
@@ -236,18 +217,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
                 ln6.setVisibility(View.INVISIBLE);
                 btn.setVisibility(View.INVISIBLE);
                 btn_p6.setVisibility(View.INVISIBLE);
-
-                et.setVisibility(View.VISIBLE);
-                btn_dp.setVisibility(View.VISIBLE);
-                btn_dn.setVisibility(View.VISIBLE);
-            }
-        });
-        btn_dp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                et.setVisibility(View.INVISIBLE);
-                btn_dp.setVisibility(View.INVISIBLE);
-                btn_dn.setVisibility(View.INVISIBLE);
 
                 TX5.setVisibility(View.VISIBLE);
                 ln5.setVisibility(View.VISIBLE);
@@ -316,7 +285,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup6.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioButton196:
                         radioButton_string6 = "10";
                         break;
@@ -354,7 +323,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup5.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioButton186:
                         radioButton_string5 = "10";
                         break;
@@ -392,7 +361,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup4.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioButton176:
                         radioButton_string4 = "10";
                         break;
@@ -430,7 +399,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioButton166:
                         radioButton_string3 = "10";
                         break;
@@ -468,7 +437,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioButton159:
                         radioButton_string2 = "70-80";
                         break;
@@ -497,7 +466,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
         radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioButton158:
                         radioButton_string = "Malignant hypertension";
                         break;
@@ -522,7 +491,7 @@ public class Questionnaire4Activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (radioButton_string == null || radioButton_string6 == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null || radioButton_string5 == null) {
-                    Toast.makeText(Questionnaire4Activity.this,"Invalid input!!!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Questionnaire4Activity.this, "Invalid input!!!!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
 
@@ -573,41 +542,6 @@ public class Questionnaire4Activity extends AppCompatActivity {
                             sum,
                             json_user_id);
                 }
-
-//                Quest4 quest4 = new Quest4();
-//                quest4.setAge(radioButton_string2);
-//                quest4.setIllnes(radioButton_string3);
-//                quest4.setCaused_other(radioButton_string4);
-//                quest4.setTime(radioButton_string6);
-//                quest4.setTreatment(radioButton_string5);
-//                quest4.setId_2(json_user_id);
-//                quest4.setGender(radioButton_string);
-//                quest4.setDate(et.getText().toString());
-//                quest4.setScore(sum);
-//
-//                Call<Quest4> call = service.insertQuset4(quest4.getGender(),
-//                        quest4.getAge(),
-//                        quest4.getIllnes(),
-//                        quest4.getCaused_other(),
-//                        quest4.getTreatment(),
-//                        quest4.getTime(),
-//                        quest4.getId_2(),
-//                        quest4.getDate(),
-//                        quest4.getScore()
-//                );
-//
-//                call.enqueue(new Callback<Quest4>() {
-//                    @Override
-//                    public void onResponse(Call<Quest4> call, Response<Quest4> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Quest4> call, Throwable t) {
-//                        Log.d("onFailure", t.toString());
-//
-//                    }
-//                });
             }
         });
     }
@@ -625,13 +559,13 @@ public class Questionnaire4Activity extends AppCompatActivity {
                     Toast.makeText(Questionnaire4Activity.this, "Send complete", Toast.LENGTH_LONG).show();
                 } else {
                     //error
-                    Toast.makeText(Questionnaire4Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Questionnaire4Activity.this, "Send failed!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Questionnaire4Response> call, Throwable t) {
-                Toast.makeText(Questionnaire4Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Questionnaire4Activity.this, "Send failed!", Toast.LENGTH_LONG).show();
             }
         });
     }

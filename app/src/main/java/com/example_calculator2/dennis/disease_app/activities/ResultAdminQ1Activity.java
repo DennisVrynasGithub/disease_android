@@ -1,30 +1,19 @@
 package com.example_calculator2.dennis.disease_app.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example_calculator2.dennis.disease_app.listView.DisplayListView1;
 import com.example_calculator2.dennis.disease_app.listView.DisplayListViewQ1;
 import com.example_calculator2.dennis.disease_app.R;
 import com.example_calculator2.dennis.disease_app.service.Api;
 import com.example_calculator2.dennis.disease_app.utils.G;
 import com.google.gson.JsonArray;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ResultAdminQ1Activity extends AppCompatActivity {
 
-    private String Json, disease_id, jsonString;
+    private String disease_id, jsonString;
     private Api api;
 
     @Override
@@ -63,14 +52,18 @@ public class ResultAdminQ1Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 jsonString = response.body().toString();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(ResultAdminQ1Activity.this, DisplayListViewQ1.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
-                        startActivity(intent);
-                    }
-                }, 2000);
+                if (Objects.equals(jsonString, "[]")) {
+                    Toast.makeText(ResultAdminQ1Activity.this,"No data",Toast.LENGTH_SHORT).show();
+                }else{
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(ResultAdminQ1Activity.this, DisplayListViewQ1.class);
+                            intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
+                            startActivity(intent);
+                        }
+                    }, 2000);
+                }
             }
 
             @Override

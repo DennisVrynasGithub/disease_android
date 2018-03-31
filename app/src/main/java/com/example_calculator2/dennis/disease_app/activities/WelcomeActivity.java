@@ -34,9 +34,9 @@ public class WelcomeActivity extends AppCompatActivity {
         button_symptom = findViewById(R.id.w_symptom);
         button_questionnaire = findViewById(R.id.w_questionnaire);
         button_logout = findViewById(R.id.w_logout);
-        button_profile = findViewById(R.id.button);
-        button_admin = findViewById(R.id.button4);
-        buttonHistory = findViewById(R.id.button7);
+        button_profile = findViewById(R.id.btnEnterProfile);
+        button_admin = findViewById(R.id.btnEnterAdmin);
+        buttonHistory = findViewById(R.id.btnEnterHistory);
 
         button_admin.setVisibility(View.INVISIBLE);
 

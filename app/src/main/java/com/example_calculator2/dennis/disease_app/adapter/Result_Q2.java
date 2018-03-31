@@ -52,16 +52,16 @@ public class Result_Q2 extends ArrayAdapter {
         View row;
         row = convertView;
         final Result_Q2.PlayerHolder playerHolder;
-        if (row == null){
-            LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = layoutInflater.inflate(R.layout.activity_row_q2,parent,false);
+        if (row == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = layoutInflater.inflate(R.layout.activity_row_q2, parent, false);
             playerHolder = new Result_Q2.PlayerHolder();
             playerHolder.column1 = row.findViewById(R.id.tx_q2_id_2);
             playerHolder.column2 = row.findViewById(R.id.tx_q2_Date);
             playerHolder.column3 = row.findViewById(R.id.tx_q2_Score);
             row.setTag(playerHolder);
-        }else {
-            playerHolder = (Result_Q2.PlayerHolder)row.getTag();
+        } else {
+            playerHolder = (Result_Q2.PlayerHolder) row.getTag();
         }
         final Results_Q symptoms = (Results_Q) this.getItem(position);
         assert symptoms != null;
@@ -71,7 +71,7 @@ public class Result_Q2 extends ArrayAdapter {
         return row;
     }
 
-    private static class PlayerHolder{
-        TextView column1,column2,column3;
+    private static class PlayerHolder {
+        TextView column1, column2, column3;
     }
 }

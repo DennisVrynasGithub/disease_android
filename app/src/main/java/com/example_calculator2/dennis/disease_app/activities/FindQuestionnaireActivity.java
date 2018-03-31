@@ -11,7 +11,7 @@ import com.example_calculator2.dennis.disease_app.R;
 public class FindQuestionnaireActivity extends AppCompatActivity {
 
     Button enter_questionnaire_1, enter_questionnaire_2, enter_questionnaire_3, enter_questionnaire_4, enter_questionnaire_5, enter_questionnaire_6, button_back;
-    String json_user_id, json_user_email,json_user_password;
+    String json_user_id, json_user_email, json_user_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

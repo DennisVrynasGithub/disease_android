@@ -6,9 +6,7 @@ import android.widget.ListView;
 
 import com.example_calculator2.dennis.disease_app.R;
 import com.example_calculator2.dennis.disease_app.adapter.GetHistoryAdapter;
-import com.example_calculator2.dennis.disease_app.adapter.PlayerAdapter;
 import com.example_calculator2.dennis.disease_app.model.GetHistoryResponse;
-import com.example_calculator2.dennis.disease_app.model.Players;
 import com.example_calculator2.dennis.disease_app.service.Api;
 import com.example_calculator2.dennis.disease_app.utils.G;
 
@@ -21,13 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DisplayListHistory extends AppCompatActivity {
 
-    String Json_string,user_id,name, id, date;
+    String Json_string, user_id, name, id, date;
     ListView listView;
     GetHistoryAdapter historyAdapter;
     JSONObject jsonObject;
     JSONArray jsonArray;
 
-    private Api api;
+    Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +36,7 @@ public class DisplayListHistory extends AppCompatActivity {
         Json_string = getIntent().getExtras().getString("Json_data");
         user_id = getIntent().getExtras().getString("json_user_id");
         listView = findViewById(R.id.listViewHistory);
-//        button_add_history_disease = findViewById(R.id.button3);
-        historyAdapter = new GetHistoryAdapter(this, R.layout.activity_row_layout_history);  // prepei a allaxei
+        historyAdapter = new GetHistoryAdapter(this, R.layout.activity_row_layout_history);
         listView.setAdapter(historyAdapter);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -53,14 +50,14 @@ public class DisplayListHistory extends AppCompatActivity {
             jsonObject = new JSONObject(Json_string);
             // Create array with name disease
             jsonArray = jsonObject.getJSONArray("disease");
-            int count =0 ;
-            while ( count < jsonArray.length()){
+            int count = 0;
+            while (count < jsonArray.length()) {
                 // Put id , name and a2z into array
                 JSONObject JO = jsonArray.getJSONObject(count);
                 name = JO.getString("name");
                 date = JO.getString("date");
                 id = JO.getString("id");
-                GetHistoryResponse players = new GetHistoryResponse(name,date,id);
+                GetHistoryResponse players = new GetHistoryResponse(name, date, id);
                 historyAdapter.add(players);
                 count++;
             }

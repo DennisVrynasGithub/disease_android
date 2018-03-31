@@ -1,35 +1,24 @@
 package com.example_calculator2.dennis.disease_app.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example_calculator2.dennis.disease_app.listView.DisplayListView;
 import com.example_calculator2.dennis.disease_app.listView.DisplayListView1;
 import com.example_calculator2.dennis.disease_app.R;
 import com.example_calculator2.dennis.disease_app.service.Api;
 import com.example_calculator2.dennis.disease_app.utils.G;
 import com.google.gson.JsonArray;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -43,8 +32,8 @@ public class SymptomActivity extends AppCompatActivity {
     protected TextView tx1, tx2;
     protected EditText editTextSymptom;
     protected Button buttonSymptom, buton_back;
-    private String Json, json_user_id,json_user_email,json_user_password, jsonString;
-    String [] str;
+    private String json_user_id, json_user_email, json_user_password, jsonString;
+    String[] str;
 
     private Api api;
 
@@ -71,32 +60,51 @@ public class SymptomActivity extends AppCompatActivity {
         buttonSymptom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Objects.equals(editTextSymptom.getText().toString(),"")){
+                if (Objects.equals(editTextSymptom.getText().toString(), "")) {
                     Toast.makeText(SymptomActivity.this, "Enter symptom", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     str = editTextSymptom.getText().toString().split(" ");
                     Integer i = str.length;
 
-                    if (i==1){
-                          getSymptom(str[0]);
-                    }
-                    else if (i==2){
+                    if (i == 1) {
+                        getSymptom(str[0]);
+                    } else if (i == 2) {
                         getSymptomTwo(str[0], str[1]);
- }
-                    else if (i==3){
+                    } else if (i == 3) {
                         getSymptomThree(str[0], str[1], str[2]);
- }
-                    else if (i==4){
+                    } else if (i == 4) {
                         getSymptomFour(str[0], str[1], str[2], str[3]);
-                    }
-                    else if (i==5){
-                        getSymptomFive(str[0], str[1], str[2], str[3],str[4]);
-                    }
-                        else{
+                    } else if (i == 5) {
+                        getSymptomFive(str[0], str[1], str[2], str[3], str[4]);
+                    } else {
                         Toast.makeText(SymptomActivity.this, "You have to fill less symptoms", Toast.LENGTH_LONG).show();
                     }
-
                 }
+            }
+        });
+
+        editTextSymptom.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    str = editTextSymptom.getText().toString().split(" ");
+                    Integer i = str.length;
+
+                    if (i == 1) {
+                        getSymptom(str[0]);
+                    } else if (i == 2) {
+                        getSymptomTwo(str[0], str[1]);
+                    } else if (i == 3) {
+                        getSymptomThree(str[0], str[1], str[2]);
+                    } else if (i == 4) {
+                        getSymptomFour(str[0], str[1], str[2], str[3]);
+                    } else if (i == 5) {
+                        getSymptomFive(str[0], str[1], str[2], str[3], str[4]);
+                    } else {
+                        Toast.makeText(SymptomActivity.this, "You have to fill less symptoms", Toast.LENGTH_LONG).show();
+                    }
+                }
+                return false;
             }
         });
 
@@ -130,12 +138,11 @@ public class SymptomActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         intent.putExtra("json_user_id", json_user_id);
                         startActivity(intent);
                     }
                 }, 2000);
-
             }
 
             @Override
@@ -152,7 +159,7 @@ public class SymptomActivity extends AppCompatActivity {
             return;
         }
 
-        Call<JsonArray> jsonCall = api.getSymptomTwo(symptomOne,symptomTwo);
+        Call<JsonArray> jsonCall = api.getSymptomTwo(symptomOne, symptomTwo);
         jsonCall.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -163,7 +170,7 @@ public class SymptomActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         startActivity(intent);
                     }
                 }, 2000);
@@ -182,7 +189,7 @@ public class SymptomActivity extends AppCompatActivity {
             return;
         }
 
-        Call<JsonArray> jsonCall = api.getSymptomThree(symptomOne,symptomTwo,symptomThree);
+        Call<JsonArray> jsonCall = api.getSymptomThree(symptomOne, symptomTwo, symptomThree);
         jsonCall.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -193,11 +200,10 @@ public class SymptomActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         startActivity(intent);
                     }
                 }, 2000);
-
             }
 
             @Override
@@ -213,7 +219,7 @@ public class SymptomActivity extends AppCompatActivity {
             return;
         }
 
-        Call<JsonArray> jsonCall = api.getSymptomFour(symptomOne,symptomTwo,symptomThree,symptomFour);
+        Call<JsonArray> jsonCall = api.getSymptomFour(symptomOne, symptomTwo, symptomThree, symptomFour);
         jsonCall.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -224,11 +230,10 @@ public class SymptomActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         startActivity(intent);
                     }
                 }, 2000);
-
             }
 
             @Override
@@ -244,7 +249,7 @@ public class SymptomActivity extends AppCompatActivity {
             return;
         }
 
-        Call<JsonArray> jsonCall = api.getSymptomFive(symptomOne,symptomTwo,symptomThree,symptomFour,symptomFive);
+        Call<JsonArray> jsonCall = api.getSymptomFive(symptomOne, symptomTwo, symptomThree, symptomFour, symptomFive);
         jsonCall.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -255,11 +260,10 @@ public class SymptomActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(SymptomActivity.this, DisplayListView1.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         startActivity(intent);
                     }
                 }, 2000);
-
             }
 
             @Override

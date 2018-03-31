@@ -22,14 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    String json_user_id,json_user_email, json_user_password, jsonString;
+    String json_user_id, json_user_email, json_user_password, jsonString;
     private Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-
 
         json_user_id = getIntent().getExtras().getString("json_user_id");
         json_user_email = getIntent().getExtras().getString("json_user_email");
@@ -60,7 +59,7 @@ public class HistoryActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(HistoryActivity.this, DisplayListHistory.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         intent.putExtra("json_user_id", json_user_id);
                         startActivity(intent);
                     }

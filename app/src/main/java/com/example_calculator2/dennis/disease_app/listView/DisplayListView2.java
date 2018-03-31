@@ -28,7 +28,7 @@ public class DisplayListView2 extends AppCompatActivity {
         //Receive Json
         String json_string = getIntent().getExtras().getString("Json_data");
         listView = findViewById(R.id.listview_admin);
-        admin_userList = new AdminUserList(this,R.layout.activity_row_admin_user_list);
+        admin_userList = new AdminUserList(this, R.layout.activity_row_admin_user_list);
         listView.setAdapter(admin_userList);
         try {
             // Transform json to json object

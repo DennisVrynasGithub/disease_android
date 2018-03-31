@@ -17,7 +17,7 @@ public class DisplayListViewQ2 extends AppCompatActivity {
     String Json_string;
     JSONObject jsonObject;
     JSONArray jsonArray;
-   Result_Q2 playerAdapter;
+    Result_Q2 playerAdapter;
     ListView listView;
 
     @Override
@@ -36,15 +36,15 @@ public class DisplayListViewQ2 extends AppCompatActivity {
             jsonObject = new JSONObject(Json_string);
             // Create array with name disease
             jsonArray = jsonObject.getJSONArray("disease");
-            int count =0 ;
-            String id_2,Date,Score;
-            while ( count < jsonArray.length()){
+            int count = 0;
+            String id_2, Date, Score;
+            while (count < jsonArray.length()) {
                 // Put id , name and a2z into array
                 JSONObject JO = jsonArray.getJSONObject(count);
                 id_2 = JO.getString("id_2");
                 Date = JO.getString("Date");
                 Score = JO.getString("Score");
-                Results_Q players = new Results_Q(id_2,Date,Score);
+                Results_Q players = new Results_Q(id_2, Date, Score);
                 playerAdapter.add(players);
                 count++;
             }

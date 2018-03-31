@@ -31,12 +31,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Questionnaire1Activity extends AppCompatActivity {
 
     RadioGroup radioGroup, radioGroup2, radioGroup3, radioGroup4, radioGroup5;
-    Button btn, btn_n1, btn_p2, btn_n2, btn_p3, btn_n3, btn_p4, btn_p5, btn_n4, btn_back, btn_dp, btn_dn;
-    String json_user_password, json_user_email, json_user_id, base_url, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5;
+    Button btn, btn_n1, btn_p2, btn_n2, btn_p3, btn_n3, btn_p4, btn_p5, btn_n4, btn_back;
+    String json_user_password, json_user_email, json_user_id, radioButton_string, radioButton_string2, radioButton_string3, radioButton_string4, radioButton_string5;
     TextView tx1, tx2, tx3, tx4, tx5, tx6, tx7, tx8, tx9, TX1, TX2, TX3, TX4, TX5;
     Integer in1, in2, in3, in4, in5;
     LinearLayout ln1, ln2, ln3, ln4, ln5;
-    EditText et;
     Integer sum;
 
     private Api api;
@@ -55,7 +54,6 @@ public class Questionnaire1Activity extends AppCompatActivity {
         radioGroup3 = findViewById(R.id.radioGroup13);
         radioGroup4 = findViewById(R.id.radioGroup14);
         radioGroup5 = findViewById(R.id.radioGroup15);
-        et = findViewById(R.id.editText8);
 
         ln1 = findViewById(R.id.linearLayout31);
         ln2 = findViewById(R.id.linearLayout);
@@ -89,8 +87,6 @@ public class Questionnaire1Activity extends AppCompatActivity {
         btn_n4 = findViewById(R.id.q1_n4);
         btn_p4 = findViewById(R.id.q1_p4);
         btn_p5 = findViewById(R.id.q1_p5);
-        btn_dn = findViewById(R.id.q1_dn);
-        btn_dp = findViewById(R.id.q1_pd);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(G.HOST_URL)
@@ -108,7 +104,6 @@ public class Questionnaire1Activity extends AppCompatActivity {
         tx8.setVisibility(View.INVISIBLE);
         tx9.setVisibility(View.INVISIBLE);
 
-        et.setVisibility(View.INVISIBLE);
         ln2.setVisibility(View.INVISIBLE);
         ln3.setVisibility(View.INVISIBLE);
         ln4.setVisibility(View.INVISIBLE);
@@ -117,8 +112,6 @@ public class Questionnaire1Activity extends AppCompatActivity {
         btn_n2.setVisibility(View.INVISIBLE);
         btn_n3.setVisibility(View.INVISIBLE);
         btn_n4.setVisibility(View.INVISIBLE);
-        btn_dn.setVisibility(View.INVISIBLE);
-        btn_dp.setVisibility(View.INVISIBLE);
         btn.setVisibility(View.INVISIBLE);
         btn_p2.setVisibility(View.INVISIBLE);
         btn_p3.setVisibility(View.INVISIBLE);
@@ -192,37 +185,13 @@ public class Questionnaire1Activity extends AppCompatActivity {
                 btn_p4.setVisibility(View.INVISIBLE);
                 btn_n4.setVisibility(View.INVISIBLE);
 
-                et.setVisibility(View.VISIBLE);
-                btn_dn.setVisibility(View.VISIBLE);
-                btn_dp.setVisibility(View.VISIBLE);
-            }
-        });
-        btn_dn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                et.setVisibility(View.INVISIBLE);
-                btn_dn.setVisibility(View.INVISIBLE);
-                btn_dp.setVisibility(View.INVISIBLE);
-
                 TX5.setVisibility(View.VISIBLE);
                 ln5.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.VISIBLE);
                 btn_p5.setVisibility(View.VISIBLE);
             }
         });
-        btn_dp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                et.setVisibility(View.INVISIBLE);
-                btn_dn.setVisibility(View.INVISIBLE);
-                btn_dp.setVisibility(View.INVISIBLE);
 
-                TX4.setVisibility(View.VISIBLE);
-                ln4.setVisibility(View.VISIBLE);
-                btn_p4.setVisibility(View.VISIBLE);
-                btn_n4.setVisibility(View.VISIBLE);
-            }
-        });
         btn_p5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,9 +200,10 @@ public class Questionnaire1Activity extends AppCompatActivity {
                 btn.setVisibility(View.INVISIBLE);
                 btn_p5.setVisibility(View.INVISIBLE);
 
-                et.setVisibility(View.VISIBLE);
-                btn_dp.setVisibility(View.VISIBLE);
-                btn_dn.setVisibility(View.VISIBLE);
+                TX4.setVisibility(View.VISIBLE);
+                ln4.setVisibility(View.VISIBLE);
+                btn_n4.setVisibility(View.VISIBLE);
+                btn_p4.setVisibility(View.VISIBLE);
             }
         });
         btn_p4.setOnClickListener(new View.OnClickListener() {
@@ -474,7 +444,7 @@ public class Questionnaire1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (radioButton_string == null || radioButton_string5 == null || radioButton_string4 == null || radioButton_string3 == null || radioButton_string2 == null) {
-                    Toast.makeText(Questionnaire1Activity.this,"Invalid input!!!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Questionnaire1Activity.this, "Invalid input!!!!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     in1 = Integer.parseInt(radioButton_string2);
@@ -505,30 +475,6 @@ public class Questionnaire1Activity extends AppCompatActivity {
                             sum,
                             json_user_id);
                 }
-//                Quest1 quest1 = new Quest1();
-//                quest1.setAge(radioButton_string2);
-//                quest1.setIllnes(radioButton_string3);
-//                quest1.setMedication(radioButton_string4);
-//                quest1.setProcedure_1(radioButton_string5);
-//                quest1.setId_2(json_user_id);
-//                quest1.setGender(radioButton_string);
-//                quest1.setDate(et.getText().toString());
-//                quest1.setScore(sum);
-//
-//                Call<Quest1> call = api.insertQuest1(quest1);
-//
-//                call.enqueue(new Callback<Quest1>() {
-//                    @Override
-//                    public void onResponse(Call<Quest1> call, Response<Quest1> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Quest1> call, Throwable t) {
-//                        Log.d("onFailure", t.toString());
-//
-//                    }
-//                });
             }
         });
     }
@@ -547,13 +493,13 @@ public class Questionnaire1Activity extends AppCompatActivity {
                     Toast.makeText(Questionnaire1Activity.this, "Send complete", Toast.LENGTH_LONG).show();
                 } else {
                     //error
-                    Toast.makeText(Questionnaire1Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Questionnaire1Activity.this, "Send failed!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Questionnaire1Response> call, Throwable t) {
-                Toast.makeText(Questionnaire1Activity.this, "Save failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Questionnaire1Activity.this, "Send failed!", Toast.LENGTH_LONG).show();
             }
         });
     }

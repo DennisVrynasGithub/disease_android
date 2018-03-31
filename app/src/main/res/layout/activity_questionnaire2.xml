@@ -755,44 +755,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="2018-01-01"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView76" />
-
-    <Button
-        android:id="@+id/q2_dn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Next "
-        android:drawableRight="@drawable/rsz_bla10"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/editText7"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="430dp" />
-
-    <Button
-        android:id="@+id/q2_dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text=" Back"
-        android:drawableLeft="@drawable/rsz_bla11"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/editText7"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="449dp" />
 </android.support.constraint.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.example_calculator2.dennis.disease_app.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,21 +9,9 @@ import android.widget.Toast;
 
 import com.example_calculator2.dennis.disease_app.listView.DisplayListVIewQ4;
 import com.example_calculator2.dennis.disease_app.R;
-import com.example_calculator2.dennis.disease_app.listView.DisplayListViewQ1;
 import com.example_calculator2.dennis.disease_app.service.Api;
 import com.example_calculator2.dennis.disease_app.utils.G;
 import com.google.gson.JsonArray;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +57,7 @@ public class ResultAdminQ4Activity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(ResultAdminQ4Activity.this, DisplayListVIewQ4.class);
-                        intent.putExtra("Json_data", "{ disease:"+jsonString+"}");
+                        intent.putExtra("Json_data", "{ disease:" + jsonString + "}");
                         startActivity(intent);
                     }
                 }, 2000);
